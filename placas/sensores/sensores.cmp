@@ -1,0 +1,101 @@
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = jue 25 ago 2011 16:01:31 ART
+
+BeginCmp
+TimeStamp = /4E55739B;
+Reference = P1;
+ValeurCmp = CONN_3X2;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E5573AF;
+Reference = P2;
+ValeurCmp = CONN_3X2;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569A46;
+Reference = R1;
+ValeurCmp = 100;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569A59;
+Reference = R2;
+ValeurCmp = 100;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569A5C;
+Reference = R3;
+ValeurCmp = 100;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569A5E;
+Reference = R4;
+ValeurCmp = 100;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569A81;
+Reference = RV1;
+ValeurCmp = POT;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569AFA;
+Reference = RV2;
+ValeurCmp = POT;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569AFD;
+Reference = RV3;
+ValeurCmp = POT;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E569B00;
+Reference = RV4;
+ValeurCmp = POT;
+IdModule  = SIL-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E556FA9;
+Reference = U1;
+ValeurCmp = CNY70;
+IdModule  = CNY70;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E556FAE;
+Reference = U2;
+ValeurCmp = CNY70;
+IdModule  = CNY70;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E556FBD;
+Reference = U3;
+ValeurCmp = CNY70;
+IdModule  = CNY70;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E556FC3;
+Reference = U4;
+ValeurCmp = CNY70;
+IdModule  = CNY70;
+EndCmp
+
+EndListe
