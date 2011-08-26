@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date jue 25 ago 2011 15:59:27 ART
+EESchema Schematic File Version 2  date Thu 25 Aug 2011 06:42:16 PM ART
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,11 +30,9 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:cny70
-LIBS:sensores-cache
-EELAYER 25  0
+EELAYER 24  0
 EELAYER END
 $Descr A4 11700 8267
-encoding utf-8
 Sheet 1 1
 Title "Unamed"
 Date "25 aug 2011"
@@ -46,28 +44,53 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
+	3000 5350 6500 5350
+$Comp
+L R R8
+U 1 1 4E56AE13
+P 6800 5150
+F 0 "R8" V 6880 5150 50  0000 C CNN
+F 1 "50k" V 6800 5150 50  0000 C CNN
+	1    6800 5150
+	0    1    1    0   
+$EndComp
+$Comp
+L R R7
+U 1 1 4E56ADF7
+P 5700 5150
+F 0 "R7" V 5780 5150 50  0000 C CNN
+F 1 "50k" V 5700 5150 50  0000 C CNN
+	1    5700 5150
+	0    1    1    0   
+$EndComp
+$Comp
+L R R5
+U 1 1 4E56ADF4
+P 3500 5150
+F 0 "R5" V 3580 5150 50  0000 C CNN
+F 1 "50k" V 3500 5150 50  0000 C CNN
+	1    3500 5150
+	0    1    1    0   
+$EndComp
+$Comp
+L R R6
+U 1 1 4E56ADE1
+P 4550 5150
+F 0 "R6" V 4630 5150 50  0000 C CNN
+F 1 "50k" V 4550 5150 50  0000 C CNN
+	1    4550 5150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
 	2500 5750 2500 5800
 Connection ~ 3200 5350
 Wire Wire Line
-	3000 5250 3000 5350
-Wire Wire Line
-	3000 5350 6800 5350
+	3000 5350 3000 5250
 Connection ~ 6150 5000
 Wire Wire Line
 	6150 4200 6150 5150
 Wire Wire Line
 	6150 5150 5950 5150
-Connection ~ 3500 5350
-Wire Wire Line
-	3500 5300 3500 5350
-Connection ~ 4550 5350
-Wire Wire Line
-	4550 5300 4550 5350
-Connection ~ 5700 5350
-Wire Wire Line
-	5700 5300 5700 5350
-Wire Wire Line
-	6800 5350 6800 5300
 Wire Wire Line
 	3200 5350 3200 5150
 Wire Wire Line
@@ -95,7 +118,7 @@ Wire Wire Line
 Wire Wire Line
 	2500 5800 2800 5800
 Wire Wire Line
-	7300 5000 6350 5000
+	6350 5000 7300 5000
 Wire Wire Line
 	3300 4800 2900 4800
 Wire Wire Line
@@ -135,7 +158,7 @@ Wire Wire Line
 Wire Wire Line
 	6150 5000 5200 5000
 Wire Wire Line
-	5000 5000 4050 5000
+	4050 5000 5000 5000
 Wire Wire Line
 	3850 5000 2900 5000
 Wire Wire Line
@@ -203,44 +226,8 @@ F 1 "VDD" H 3000 5360 30  0000 C CNN
 	1    3000 5250
 	1    0    0    -1  
 $EndComp
-$Comp
-L POT RV4
-U 1 1 4E569B00
-P 6800 5150
-F 0 "RV4" H 6800 5050 50  0000 C CNN
-F 1 "POT" H 6800 5150 50  0000 C CNN
-	1    6800 5150
-	-1   0    0    1   
-$EndComp
-$Comp
-L POT RV3
-U 1 1 4E569AFD
-P 5700 5150
-F 0 "RV3" H 5700 5050 50  0000 C CNN
-F 1 "POT" H 5700 5150 50  0000 C CNN
-	1    5700 5150
-	-1   0    0    1   
-$EndComp
-$Comp
-L POT RV2
-U 1 1 4E569AFA
-P 4550 5150
-F 0 "RV2" H 4550 5050 50  0000 C CNN
-F 1 "POT" H 4550 5150 50  0000 C CNN
-	1    4550 5150
-	-1   0    0    1   
-$EndComp
 Text Label 2900 5000 0    60   ~ 0
 ReceptorA
-$Comp
-L POT RV1
-U 1 1 4E569A81
-P 3500 5150
-F 0 "RV1" H 3500 5050 50  0000 C CNN
-F 1 "POT" H 3500 5150 50  0000 C CNN
-	1    3500 5150
-	-1   0    0    1   
-$EndComp
 $Comp
 L R R4
 U 1 1 4E569A5E

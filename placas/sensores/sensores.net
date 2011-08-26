@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  jue 25 ago 2011 16:01:31 ART
+# EESchema Netlist Version 1.1 created  Thu 25 Aug 2011 05:30:20 PM ART
 (
  ( /4E55739B pin_array_3x2 P1 CONN_3X2
   ( 1 VDD )
@@ -17,62 +17,58 @@
   ( 6 /EmisorD )
  )
  ( /4E569A46 R3 R1 100
-  ( 1 N-000004 )
+  ( 1 N-000005 )
   ( 2 /EmisorA )
  )
  ( /4E569A59 R3 R2 100
-  ( 1 N-000003 )
+  ( 1 N-000004 )
   ( 2 /EmisorB )
  )
  ( /4E569A5C R3 R3 100
-  ( 1 N-000002 )
+  ( 1 N-000003 )
   ( 2 /EmisorC )
  )
  ( /4E569A5E R3 R4 100
-  ( 1 N-000001 )
+  ( 1 N-000002 )
   ( 2 /EmisorD )
  )
- ( /4E569A81 SIL-3 RV1 POT
+ ( /4E56ADF4 R3 R5 50k
   ( 1 /ReceptorA )
   ( 2 VDD )
-  ( 3 VDD )
  )
- ( /4E569AFA SIL-3 RV2 POT
+ ( /4E56ADE1 R3 R6 50k
   ( 1 /ReceptorB )
   ( 2 VDD )
-  ( 3 VDD )
  )
- ( /4E569AFD SIL-3 RV3 POT
+ ( /4E56ADF7 R3 R7 50k
   ( 1 /ReceptorC )
   ( 2 VDD )
-  ( 3 VDD )
  )
- ( /4E569B00 SIL-3 RV4 POT
+ ( /4E56AE13 R3 R8 50k
   ( 1 /ReceptorD )
   ( 2 VDD )
-  ( 3 VDD )
  )
  ( /4E556FA9 CNY70 U1 CNY70
   ( 1 VDD )
-  ( 2 N-000004 )
+  ( 2 N-000005 )
   ( 3 GND )
   ( 4 /ReceptorA )
  )
  ( /4E556FAE CNY70 U2 CNY70
   ( 1 VDD )
-  ( 2 N-000003 )
+  ( 2 N-000004 )
   ( 3 GND )
   ( 4 /ReceptorB )
  )
  ( /4E556FBD CNY70 U3 CNY70
   ( 1 VDD )
-  ( 2 N-000002 )
+  ( 2 N-000003 )
   ( 3 GND )
   ( 4 /ReceptorC )
  )
  ( /4E556FC3 CNY70 U4 CNY70
   ( 1 VDD )
-  ( 2 N-000001 )
+  ( 2 N-000002 )
   ( 3 GND )
   ( 4 /ReceptorD )
  )
@@ -101,6 +97,34 @@ $component R3
  SM1206
 $endlist
 $component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R8
  R?
  SM0603
  SM0805

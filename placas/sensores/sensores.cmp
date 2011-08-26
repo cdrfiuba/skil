@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = jue 25 ago 2011 16:01:31 ART
+Cmp-Mod V01 Created by CvPCB (2010-05-05 BZR 2356)-stable date = Thu 25 Aug 2011 05:30:20 PM ART
 
 BeginCmp
 TimeStamp = /4E55739B;
@@ -43,31 +43,31 @@ IdModule  = R3;
 EndCmp
 
 BeginCmp
-TimeStamp = /4E569A81;
-Reference = RV1;
-ValeurCmp = POT;
-IdModule  = SIL-3;
+TimeStamp = /4E56ADF4;
+Reference = R5;
+ValeurCmp = 50k;
+IdModule  = R3;
 EndCmp
 
 BeginCmp
-TimeStamp = /4E569AFA;
-Reference = RV2;
-ValeurCmp = POT;
-IdModule  = SIL-3;
+TimeStamp = /4E56ADE1;
+Reference = R6;
+ValeurCmp = 50k;
+IdModule  = R3;
 EndCmp
 
 BeginCmp
-TimeStamp = /4E569AFD;
-Reference = RV3;
-ValeurCmp = POT;
-IdModule  = SIL-3;
+TimeStamp = /4E56ADF7;
+Reference = R7;
+ValeurCmp = 50k;
+IdModule  = R3;
 EndCmp
 
 BeginCmp
-TimeStamp = /4E569B00;
-Reference = RV4;
-ValeurCmp = POT;
-IdModule  = SIL-3;
+TimeStamp = /4E56AE13;
+Reference = R8;
+ValeurCmp = 50k;
+IdModule  = R3;
 EndCmp
 
 BeginCmp
