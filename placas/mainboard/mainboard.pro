@@ -1,4 +1,4 @@
-update=jue 25 ago 2011 15:32:14 ART
+update=jue 25 ago 2011 20:53:36 ART
 version=1
 last_client=pcbnew
 [general]
@@ -103,7 +103,7 @@ LibName7=display
 LibName8=valves
 LibName9=led
 LibName10=dip_sockets
-LibName11=SOT223-5
-LibName12=HTSSOP28
-LibName13=mbed
-LibName14=molex_2_recto
+LibName11=HTSSOP28
+LibName12=mbed
+LibName13=molex_2_recto
+LibName14=SOT223-5

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date jue 25 ago 2011 20:51:28 ART
+EESchema Schematic File Version 2  date jue 25 ago 2011 20:52:22 ART
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -656,55 +656,55 @@ Wire Wire Line
 	10350 1550 9650 1550
 Connection ~ 9650 1550
 $Comp
-L R R?
+L R R6
 U 1 1 4E56B7B3
 P 9650 1000
-F 0 "R?" V 9730 1000 50  0000 C CNN
+F 0 "R6" V 9730 1000 50  0000 C CNN
 F 1 "100" V 9650 1000 50  0000 C CNN
 	1    9650 1000
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP C?
+L CP C16
 U 1 1 4E56B7AB
 P 9650 1800
-F 0 "C?" H 9700 1900 50  0000 L CNN
+F 0 "C16" H 9700 1900 50  0000 L CNN
 F 1 "4.7u" H 9700 1700 50  0000 L CNN
 	1    9650 1800
 	-1   0    0    -1  
 $EndComp
 $Comp
-L R R?
+L R R5
 U 1 1 4E56B700
 P 9550 2800
-F 0 "R?" V 9630 2800 50  0000 C CNN
+F 0 "R5" V 9630 2800 50  0000 C CNN
 F 1 "100" V 9550 2800 50  0000 C CNN
 	1    9550 2800
 	1    0    0    -1  
 $EndComp
 $Comp
-L CP C?
+L CP C15
 U 1 1 4E56B6FC
 P 9550 3600
-F 0 "C?" H 9600 3700 50  0000 L CNN
+F 0 "C15" H 9600 3700 50  0000 L CNN
 F 1 "4.7u" H 9600 3500 50  0000 L CNN
 	1    9550 3600
 	-1   0    0    -1  
 $EndComp
 $Comp
-L CP C?
+L CP C14
 U 1 1 4E56B686
 P 9450 5350
-F 0 "C?" H 9500 5450 50  0000 L CNN
+F 0 "C14" H 9500 5450 50  0000 L CNN
 F 1 "4.7u" H 9500 5250 50  0000 L CNN
 	1    9450 5350
 	-1   0    0    -1  
 $EndComp
 $Comp
-L R R?
+L R R4
 U 1 1 4E56B682
 P 9450 4550
-F 0 "R?" V 9530 4550 50  0000 C CNN
+F 0 "R4" V 9530 4550 50  0000 C CNN
 F 1 "100" V 9450 4550 50  0000 C CNN
 	1    9450 4550
 	1    0    0    -1  
