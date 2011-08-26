@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = jue 25 ago 2011 18:33:10 ART
+Cmp-Mod V01 Created by CvPCB (2011-07-08 BZR 3044)-stable date = vie 26 ago 2011 08:14:23 ART
 
 BeginCmp
 TimeStamp = /4E55BAE8;
@@ -250,6 +250,13 @@ TimeStamp = /4E55D600;
 Reference = P6;
 ValeurCmp = Solenoide;
 IdModule  = PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /4E577FF0;
+Reference = P7;
+ValeurCmp = CONN_1;
+IdModule  = 1pin;
 EndCmp
 
 BeginCmp
