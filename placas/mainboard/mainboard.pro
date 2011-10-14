@@ -1,8 +1,13 @@
-update=jue 25 ago 2011 20:53:36 ART
+update=mié 12 oct 2011 00:44:44 ART
 version=1
 last_client=pcbnew
 [general]
 version=1
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [eeschema]
 version=1
 LibDir=../../placas
@@ -69,16 +74,12 @@ LibName31=drv8843
 LibName32=mbed
 LibName33=7805fx
 LibName34=reg_104-5
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
+LibName35=drv8833
 [pcbnew]
 version=1
-PadDrlX=320
-PadDimH=600
-PadDimV=600
+PadDrlX=0
+PadDimH=827
+PadDimV=827
 BoardThickness=630
 TxtPcbV=800
 TxtPcbH=600
@@ -107,3 +108,4 @@ LibName11=HTSSOP28
 LibName12=mbed
 LibName13=molex_2_recto
 LibName14=SOT223-5
+LibName15=HTSSOP16
