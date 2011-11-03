@@ -1,604 +1,701 @@
-# EESchema Netlist Version 1.1 created  mié 12 oct 2011 00:59:57 ART
+# EESchema Netlist Version 1.1 created  Thu 03 Nov 2011 00:24:53 ART
 (
- ( /4E950160 C1V5 C1 2.2u
-  ( 1 N-000063 )
-  ( 2 GND )
- )
- ( /4E567D03 SM0805 C2 100n
-  ( 1 +5V )
-  ( 2 GND )
- )
- ( /4E566A7E C1 C3 100n
-  ( 1 /Puls )
-  ( 2 GND )
- )
- ( /4E55C577 C1V5 C4 1u
-  ( 1 +5V )
-  ( 2 GND )
- )
- ( /4E55C588 SM0805 C5 100n
-  ( 1 N-000012 )
-  ( 2 GND )
- )
- ( /4E567CFC SM0805 C6 100n
-  ( 1 +BATT )
-  ( 2 GND )
- )
- ( /4E559676 SM0805 C7 10n
-  ( 1 N-000016 )
-  ( 2 +BATT )
- )
- ( /4E559741 SM0805 C8 100n
-  ( 1 N-000063 )
-  ( 2 GND )
- )
- ( /4E55B95F C1V5 C9 10u
-  ( 1 +BATT )
-  ( 2 GND )
- )
- ( /4E55B965 SM0805 C10 100n
-  ( 1 +BATT )
-  ( 2 GND )
- )
- ( /4E56653E C1V5 C11 4.7u
-  ( 1 N-000013 )
-  ( 2 GND )
- )
- ( /4E566539 C1V5 C12 4.7u
-  ( 1 N-000061 )
-  ( 2 GND )
- )
- ( /4E55C0B6 C1V5 C13 4.7u
-  ( 1 N-000064 )
-  ( 2 GND )
- )
- ( /4E56B686 C1V5 C14 4.7u
-  ( 1 N-000062 )
-  ( 2 GND )
- )
- ( /4E56B6FC C1V5 C15 4.7u
-  ( 1 N-000007 )
-  ( 2 GND )
- )
- ( /4E56B7AB C1V5 C16 4.7u
-  ( 1 N-000057 )
-  ( 2 GND )
- )
- ( /4E567A13 LED-5MM D1 LED
-  ( 1 N-000052 )
-  ( 2 N-000018 )
- )
- ( /4E567A4D LED-5MM D2 LED
-  ( 1 N-000056 )
-  ( 2 N-000018 )
- )
- ( /4E567A4F LED-5MM D3 LED
-  ( 1 N-000055 )
-  ( 2 N-000018 )
- )
- ( /4E567A50 LED-5MM D4 LED
-  ( 1 N-000051 )
-  ( 2 N-000059 )
- )
- ( /4E567A52 LED-5MM D5 LED
-  ( 1 N-000054 )
-  ( 2 N-000059 )
- )
- ( /4E567A54 LED-5MM D6 LED
-  ( 1 N-000053 )
-  ( 2 N-000059 )
- )
- ( /4E566560 D4 D7 DIODE
-  ( 1 N-000065 )
-  ( 2 +5V )
- )
- ( /4E95006C HTSSOP16 IC1 DRV8833
-  ( 1 /nSleep )
-  ( 2 /MI_1 )
-  ( 3 GND )
-  ( 4 /MI_2 )
-  ( 5 /MD_2 )
-  ( 6 GND )
-  ( 7 /MD_1 )
-  ( 8 /nFault )
-  ( 9 /PwmD_1 )
-  ( 10 /PwmD_2 )
-  ( 11 N-000016 )
-  ( 12 +BATT )
-  ( 13 GND )
-  ( 14 N-000063 )
-  ( 15 /PwmI_2 )
-  ( 16 /PwmI_1 )
- )
- ( /4E9505D4 PIN_ARRAY_2X1 JP1 JUMPER
-  ( 1 N-000015 )
-  ( 2 +BATT )
- )
- ( /4E56653C SIL-3 K1 OjitoC1
-  ( 1 N-000013 )
-  ( 2 GND )
-  ( 3 /OjitoC )
- )
- ( /4E56653D SIL-3 K2 OjitoC2
-  ( 1 N-000062 )
-  ( 2 GND )
-  ( 3 /OjitoC )
- )
- ( /4E56653B SIL-3 K3 OjitoB1
-  ( 1 N-000061 )
-  ( 2 GND )
-  ( 3 /OjitoB )
- )
- ( /4E56653A SIL-3 K4 OjitoB2
-  ( 1 N-000007 )
-  ( 2 GND )
-  ( 3 /OjitoB )
- )
- ( /4E55BF84 SIL-3 K5 OjitoA1
-  ( 1 N-000064 )
-  ( 2 GND )
-  ( 3 /OjitoA )
- )
- ( /4E55BF86 SIL-3 K6 OjitoA2
-  ( 1 N-000057 )
-  ( 2 GND )
-  ( 3 /OjitoA )
- )
- ( /4E55B3F1 molex_2_recto P1 Bateria
-  ( 1 N-000015 )
-  ( 2 GND )
- )
- ( /4E55BC4A PINHEAD1-2 P2 MI
-  ( 1 /MI_1 )
-  ( 2 /MI_2 )
- )
- ( /4E55BC4D PINHEAD1-2 P3 MD
-  ( 1 /MD_1 )
-  ( 2 /MD_2 )
- )
- ( /4E55CCC0 pin_array_3x2 P4 CONN_3X2
-  ( 1 +5V )
-  ( 2 GND )
-  ( 3 /EmisorA )
-  ( 4 /RecepA )
-  ( 5 /RecepB )
-  ( 6 /EmisorA )
- )
- ( /4E55CF6C pin_array_3x2 P5 CONN_3X2
-  ( 1 +5V )
-  ( 2 GND )
-  ( 3 /EmisorA )
-  ( 4 /RecepD )
-  ( 5 /RecepC )
-  ( 6 /EmisorA )
- )
- ( /4E55D600 PINHEAD1-2 P6 Solenoide
-  ( 1 +5V )
-  ( 2 N-000065 )
- )
- ( /4E577FF0 1pin P7 CONN_1
-  ( 1 GND )
- )
- ( /4E950218 1pin P8 CONN_1
-  ( 1 GND )
- )
- ( /4E565E34 TO92 Q1 NPN
-  ( 1 GND )
-  ( 2 N-000003 )
-  ( 3 /EmisorA )
- )
- ( /4E55BCB7 TO92 Q2 NPN
-  ( 1 GND )
-  ( 2 N-000017 )
-  ( 3 N-000018 )
- )
- ( /4E565AB2 TO92 Q3 NPN
-  ( 1 GND )
-  ( 2 N-000006 )
-  ( 3 N-000059 )
- )
- ( /4E55D599 TO92 Q4 NPN
-  ( 1 GND )
-  ( 2 N-000010 )
-  ( 3 N-000065 )
- )
- ( /4E565E35 R3 R3 2.2k
-  ( 1 N-000003 )
-  ( 2 /EmisPiso )
- )
- ( /4E56B682 R3 R4 100
-  ( 1 +5V )
-  ( 2 N-000062 )
- )
- ( /4E56B700 R3 R5 100
-  ( 1 +5V )
-  ( 2 N-000007 )
- )
- ( /4E56B7B3 R3 R6 100
-  ( 1 +5V )
-  ( 2 N-000057 )
- )
- ( /4E55BEBF R3 R8 10k
-  ( 1 N-000017 )
-  ( 2 /OjitosEmit1 )
- )
- ( /4E55BD36 R3 R9 2k2
-  ( 1 +5V )
-  ( 2 N-000052 )
- )
- ( /4E55BCC4 R3 R10 2k2
-  ( 1 +5V )
-  ( 2 N-000056 )
- )
- ( /4E55BCCA R3 R11 2k2
-  ( 1 +5V )
-  ( 2 N-000055 )
- )
- ( /4E565AB1 R3 R12 10k
-  ( 1 N-000006 )
-  ( 2 /OjitosEmit2 )
- )
- ( /4E55BD37 R3 R13 2k2
-  ( 1 +5V )
-  ( 2 N-000051 )
- )
- ( /4E55BCCD R3 R14 2k2
-  ( 1 +5V )
-  ( 2 N-000054 )
- )
- ( /4E55BD34 R3 R15 2k2
-  ( 1 +5V )
-  ( 2 N-000053 )
- )
- ( /4E55D598 R3 R16 2.2k
-  ( 1 N-000010 )
-  ( 2 /Sole )
- )
- ( /4E56653F R3 R17 100
-  ( 1 +5V )
-  ( 2 N-000013 )
- )
- ( /4E566538 R3 R18 100
-  ( 1 +5V )
-  ( 2 N-000061 )
- )
- ( /4E55C180 R3 R19 100
-  ( 1 +5V )
-  ( 2 N-000064 )
- )
- ( /4E566542 R3 R20 4.7k
-  ( 1 +5V )
-  ( 2 /OjitoC )
- )
- ( /4E566535 R3 R21 4.7k
-  ( 1 +5V )
-  ( 2 /OjitoB )
- )
- ( /4E55CBE6 R3 R22 4.7k
-  ( 1 +5V )
-  ( 2 /OjitoA )
- )
- ( /4E55C971 SW_PUSH_SMALL SW1 SW_PUSH_SMALL
-  ( 1 /Puls )
-  ( 2 GND )
- )
- ( /4E567AEE SOT223-5 U1 REG_104-5
-  ( 1 +BATT )
-  ( 2 +5V )
-  ( 3 GND )
-  ( 4 N-000012 )
-  ( 5 +BATT )
- )
- ( /4E559307 MBED-DOBLE U2 MBED
-  ( 1 GND )
-  ( 2 +5V )
-  ( 3 ? )
-  ( 4 ? )
-  ( 5 /RecepA )
-  ( 6 /RecepB )
-  ( 7 /RecepC )
-  ( 8 /RecepD )
-  ( 9 ? )
-  ( 10 /Sole )
-  ( 11 /EmisPiso )
-  ( 12 ? )
-  ( 13 ? )
-  ( 14 ? )
-  ( 15 /OjitoA )
-  ( 16 /OjitoB )
-  ( 17 /OjitoC )
-  ( 18 ? )
-  ( 19 ? )
-  ( 20 ? )
-  ( 21 /OjitosEmit2 )
-  ( 22 /OjitosEmit1 )
-  ( 23 /PwmD_2 )
-  ( 24 /PwmD_1 )
-  ( 25 /PwmI_1 )
-  ( 26 /PwmI_2 )
-  ( 27 /nFault )
-  ( 28 /nSleep )
-  ( 29 ? )
-  ( 30 /Puls )
-  ( 31 ? )
-  ( 32 ? )
-  ( 33 ? )
-  ( 34 ? )
-  ( 35 ? )
-  ( 36 ? )
-  ( 37 ? )
-  ( 38 ? )
-  ( 39 ? )
-  ( 40 ? )
+ ( /4EAF365C $noname  P_UC2 CONN_4 {Lib=CONN_4}
+  (    1 +5V )
+  (    2 /ATRX )
+  (    3 /ATTX )
+  (    4 GND )
+ )
+ ( /4EAF3631 $noname  P2 CONN_1 {Lib=CONN_1}
+  (    1 +BATT )
+ )
+ ( /4EAF360A $noname  P1 CONN_1 {Lib=CONN_1}
+  (    1 +5V )
+ )
+ ( /4EAF35C3 $noname  C_UC1 100n {Lib=C}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /4EAF34AF $noname  P_UC1 CONN_3X2 {Lib=CONN_3X2}
+  (    1 /ATMISO )
+  (    2 +5V )
+  (    3 /ATSCK )
+  (    4 /ATMOSI )
+  (    5 /ATRESET )
+  (    6 GND )
+ )
+ ( /4EAF3374 $noname  R_UC1 10k {Lib=R}
+  (    1 /ATRESET )
+  (    2 +5V )
+ )
+ ( /4EAF3348 $noname  SW_UC1 SW_PUSH_SMALL {Lib=SW_PUSH_SMALL}
+  (    1 /ATRESET )
+  (    2 GND )
+ )
+ ( /4EAF32A2 DIL28  IC_UC1 ATMEGA88PA-P {Lib=ATMEGA88PA-P}
+  (    1 /ATRESET )
+  (    2 /ATRX )
+  (    3 /ATTX )
+  (    4 /OjitoRecepAd )
+  (    5 /OjitoRecepAtr )
+  (    6 /OjitosEmitAd )
+  (    7 +5V )
+  (    8 GND )
+  (    9 /RecepB )
+  (   10 /RecepA )
+  (   11 /PwmI_2 )
+  (   12 /PwmI_1 )
+  (   13 /RecepC )
+  (   14 /RecepD )
+  (   15 /PwmD_2 )
+  (   16 /PwmD_1 )
+  (   17 /ATMOSI )
+  (   18 /ATMISO )
+  (   19 /ATSCK )
+  (   20 +5V )
+  (   21 ? )
+  (   22 GND )
+  (   23 /nFault )
+  (   24 /Puls )
+  (   25 /Sole )
+  (   26 ? )
+  (   27 ? )
+  (   28 ? )
+ )
+ ( /4EAF31B4 $noname  K_OJ2 OjitoATR {Lib=CONN_3}
+  (    1 N-000017 )
+  (    2 GND )
+  (    3 /OjitoRecepAtr )
+ )
+ ( /4EAF31B1 $noname  C_OJ2 4.7u {Lib=CP}
+  (    1 N-000017 )
+  (    2 GND )
+ )
+ ( /4EAF31B0 $noname  R_OJ8 100 {Lib=R}
+  (    1 N-000017 )
+  (    2 +5V )
+ )
+ ( /4EAF31AF $noname  R_OJ4 4.7k {Lib=R}
+  (    1 /OjitoRecepAtr )
+  (    2 +5V )
+ )
+ ( /4E55CBE6 $noname  R_OJ3 4.7k {Lib=R}
+  (    1 /OjitoRecepAd )
+  (    2 +5V )
+ )
+ ( /4E9505D4 $noname  JP_B1 JUMPER {Lib=JUMPER}
+  (    1 N-000036 )
+  (    2 +BATT )
+ )
+ ( /4E950218 $noname  P4 CONN_1 {Lib=CONN_1}
+  (    1 GND )
+ )
+ ( /4E950160 $noname  C_PH2 2.2u {Lib=CP}
+  (    1 N-000004 )
+  (    2 GND )
+ )
+ ( /4E95006C $noname  IC_PH1 DRV8833 {Lib=DRV8833}
+  (    1 /ATSCK )
+  (    2 /MI_1 )
+  (    3 GND )
+  (    4 /MI_2 )
+  (    5 /MD_2 )
+  (    6 GND )
+  (    7 /MD_1 )
+  (    8 /nFault )
+  (    9 /PwmD_1 )
+  (   10 /PwmD_2 )
+  (   11 N-000037 )
+  (   12 +BATT )
+  (   13 GND )
+  (   14 N-000004 )
+  (   15 /PwmI_2 )
+  (   16 /PwmI_1 )
+ )
+ ( /4E577FF0 $noname  P3 CONN_1 {Lib=CONN_1}
+  (    1 GND )
+ )
+ ( /4E56B7B3 $noname  R_OJ7 100 {Lib=R}
+  (    1 N-000002 )
+  (    2 +5V )
+ )
+ ( /4E56B7AB $noname  C_OJ1 4.7u {Lib=CP}
+  (    1 N-000002 )
+  (    2 GND )
+ )
+ ( /4E567D03 $noname  C_B1 100n {Lib=C}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /4E567CFC $noname  C_B4 100n {Lib=C}
+  (    1 +BATT )
+  (    2 GND )
+ )
+ ( /4E567AEE $noname  U_B1 REG_104-5 {Lib=REG_104-5}
+  (    1 +BATT )
+  (    2 +5V )
+  (    3 GND )
+  (    4 N-000003 )
+  (    5 +BATT )
+ )
+ ( /4E567A54 $noname  D_OJ2 LED {Lib=LED}
+  (    1 N-000038 )
+  (    2 N-000005 )
+ )
+ ( /4E567A13 $noname  D_OJ1 LED {Lib=LED}
+  (    1 N-000064 )
+  (    2 N-000039 )
+ )
+ ( /4E566A7E $noname  C_Pl1 100n {Lib=C}
+  (    1 /Puls )
+  (    2 GND )
+ )
+ ( /4E566560 $noname  D_SL1 DIODE {Lib=DIODE}
+  (    1 N-000065 )
+  (    2 +5V )
+ )
+ ( /4E565E35 $noname  R_E1 2.2k {Lib=R}
+  (    1 N-000012 )
+  (    2 /ATMOSI )
+ )
+ ( /4E565E34 $noname  Q_E1 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000012 )
+  (    3 /EmisorA )
+ )
+ ( /4E565AB2 $noname  Q_OJ2 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000006 )
+  (    3 N-000005 )
+ )
+ ( /4E565AB1 $noname  R_OJ6 10k {Lib=R}
+  (    1 N-000006 )
+  (    2 /ATMISO )
+ )
+ ( /4E55D600 $noname  P_SL1 Solenoide {Lib=CONN_2}
+  (    1 +5V )
+  (    2 N-000065 )
+ )
+ ( /4E55D599 $noname  Q_SL1 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000008 )
+  (    3 N-000065 )
+ )
+ ( /4E55D598 $noname  R_SL1 2.2k {Lib=R}
+  (    1 N-000008 )
+  (    2 /Sole )
+ )
+ ( /4E55CF6C $noname  P_E2 CONN_3X2 {Lib=CONN_3X2}
+  (    1 +5V )
+  (    2 GND )
+  (    3 /EmisorA )
+  (    4 /RecepD )
+  (    5 /RecepC )
+  (    6 /EmisorA )
+ )
+ ( /4E55CCC0 $noname  P_E1 CONN_3X2 {Lib=CONN_3X2}
+  (    1 +5V )
+  (    2 GND )
+  (    3 /EmisorA )
+  (    4 /RecepA )
+  (    5 /RecepB )
+  (    6 /EmisorA )
+ )
+ ( /4E55C971 $noname  SW_Pl1 SW_PUSH_SMALL {Lib=SW_PUSH_SMALL}
+  (    1 /Puls )
+  (    2 GND )
+ )
+ ( /4E55C588 $noname  C_B3 100n {Lib=C}
+  (    1 N-000003 )
+  (    2 GND )
+ )
+ ( /4E55C577 $noname  C_B2 1u {Lib=CP}
+  (    1 +5V )
+  (    2 GND )
+ )
+ ( /4E55BF86 $noname  K_OJ1 OjitoAD {Lib=CONN_3}
+  (    1 N-000002 )
+  (    2 GND )
+  (    3 /OjitoRecepAd )
+ )
+ ( /4E55BEBF $noname  R_OJ1 10k {Lib=R}
+  (    1 N-000062 )
+  (    2 /OjitosEmitAd )
+ )
+ ( /4E55BD36 $noname  R_OJ2 2k2 {Lib=R}
+  (    1 +5V )
+  (    2 N-000064 )
+ )
+ ( /4E55BD34 $noname  R_OJ5 2k2 {Lib=R}
+  (    1 +5V )
+  (    2 N-000038 )
+ )
+ ( /4E55BCB7 $noname  Q_OJ1 NPN {Lib=NPN}
+  (    1 GND )
+  (    2 N-000062 )
+  (    3 N-000039 )
+ )
+ ( /4E55BC4D $noname  P_PH2 MD {Lib=CONN_2}
+  (    1 /MD_1 )
+  (    2 /MD_2 )
+ )
+ ( /4E55BC4A $noname  P_PH1 MI {Lib=CONN_2}
+  (    1 /MI_1 )
+  (    2 /MI_2 )
+ )
+ ( /4E55B965 $noname  C_PH5 100n {Lib=C}
+  (    1 +BATT )
+  (    2 GND )
+ )
+ ( /4E55B95F $noname  C_PH4 10u {Lib=CP}
+  (    1 +BATT )
+  (    2 GND )
+ )
+ ( /4E55B3F1 $noname  P_B1 Bateria {Lib=CONN_2}
+  (    1 N-000036 )
+  (    2 GND )
+ )
+ ( /4E559741 $noname  C_PH1 100n {Lib=C}
+  (    1 N-000004 )
+  (    2 GND )
+ )
+ ( /4E559676 $noname  C_PH3 10n {Lib=C}
+  (    1 N-000037 )
+  (    2 +BATT )
+ )
+ ( /4E559307 $noname  IC_UC2 MBED {Lib=MBED}
+  (    1 GND )
+  (    2 +5V )
+  (    3 ? )
+  (    4 ? )
+  (    5 /OjitoRecepAd )
+  (    6 /OjitosEmitAd )
+  (    7 ? )
+  (    8 ? )
+  (    9 ? )
+  (   10 ? )
+  (   11 /RecepB )
+  (   12 /RecepA )
+  (   13 /RecepC )
+  (   14 /RecepD )
+  (   15 ? )
+  (   16 /OjitoRecepAtr )
+  (   17 /ATMOSI )
+  (   18 ? )
+  (   19 ? )
+  (   20 ? )
+  (   21 /ATMISO )
+  (   22 /ATSCK )
+  (   23 /PwmI_1 )
+  (   24 /PwmI_2 )
+  (   25 /PwmD_2 )
+  (   26 /PwmD_1 )
+  (   27 ? )
+  (   28 /nFault )
+  (   29 /Puls )
+  (   30 /Sole )
+  (   31 ? )
+  (   32 ? )
+  (   33 ? )
+  (   34 ? )
+  (   35 ? )
+  (   36 ? )
+  (   37 ? )
+  (   38 ? )
+  (   39 ? )
+  (   40 ? )
  )
 )
 *
 { Allowed footprints by component:
-$component C1
- CP*
- SM*
-$endlist
-$component C2
+$component C_UC1
  SM*
  C?
  C1-1
 $endlist
-$component C3
- SM*
- C?
- C1-1
+$component R_UC1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
-$component C4
+$component IC_UC1
+ 28DIP-ELL600
+ 28dip600
+$endlist
+$component C_OJ2
  CP*
  SM*
 $endlist
-$component C5
- SM*
- C?
- C1-1
+$component R_OJ8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
-$component C6
- SM*
- C?
- C1-1
+$component R_OJ4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
-$component C7
- SM*
- C?
- C1-1
+$component R_OJ3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
-$component C8
- SM*
- C?
- C1-1
-$endlist
-$component C9
+$component C_PH2
  CP*
  SM*
 $endlist
-$component C10
- SM*
- C?
- C1-1
-$endlist
-$component C11
- CP*
- SM*
-$endlist
-$component C12
- CP*
- SM*
-$endlist
-$component C13
- CP*
- SM*
-$endlist
-$component C14
- CP*
- SM*
-$endlist
-$component C15
- CP*
- SM*
-$endlist
-$component C16
- CP*
- SM*
-$endlist
-$component D1
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D2
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D3
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D4
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D5
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D6
- LED-3MM
- LED-5MM
- LED-10MM
- LED-0603
- LED-0805
- LED-1206
- LEDV
-$endlist
-$component D7
- D?
- S*
-$endlist
-$component IC1
+$component IC_PH1
  HTSSOP16
  QFN16
 $endlist
-$component R3
+$component R_OJ7
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R4
+$component C_OJ1
+ CP*
+ SM*
+$endlist
+$component C_B1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C_B4
+ SM*
+ C?
+ C1-1
+$endlist
+$component D_OJ2
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component D_OJ1
+ LED-3MM
+ LED-5MM
+ LED-10MM
+ LED-0603
+ LED-0805
+ LED-1206
+ LEDV
+$endlist
+$component C_Pl1
+ SM*
+ C?
+ C1-1
+$endlist
+$component D_SL1
+ D?
+ S*
+$endlist
+$component R_E1
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R5
+$component R_OJ6
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R6
+$component R_SL1
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R8
+$component C_B3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C_B2
+ CP*
+ SM*
+$endlist
+$component R_OJ1
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R9
+$component R_OJ2
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R10
+$component R_OJ5
  R?
  SM0603
  SM0805
  R?-*
  SM1206
 $endlist
-$component R11
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C_PH5
+ SM*
+ C?
+ C1-1
 $endlist
-$component R12
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C_PH4
+ CP*
+ SM*
 $endlist
-$component R13
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C_PH1
+ SM*
+ C?
+ C1-1
 $endlist
-$component R14
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R15
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R16
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R17
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R18
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R19
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R20
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R21
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R22
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C_PH3
+ SM*
+ C?
+ C1-1
 $endlist
 $endfootprintlist
 }
+{ Pin List by Nets
+Net 1 "GND" "GND"
+ K_OJ1 2
+ SW_Pl1 2
+ K_OJ2 2
+ C_B3 2
+ C_OJ2 2
+ C_B2 2
+ P_E2 2
+ SW_UC1 2
+ IC_UC1 8
+ P_UC1 6
+ C_B1 2
+ C_PH5 2
+ C_PH4 2
+ C_PH1 2
+ IC_UC2 1
+ Q_OJ1 1
+ P_UC2 4
+ P_E1 2
+ P4 1
+ IC_UC1 22
+ C_UC1 2
+ P_B1 2
+ IC_PH1 13
+ IC_PH1 3
+ C_B4 2
+ P3 1
+ C_OJ1 2
+ Q_OJ2 1
+ U_B1 3
+ IC_PH1 6
+ C_PH2 2
+ Q_E1 1
+ C_Pl1 2
+ Q_SL1 1
+Net 2 "" ""
+ C_OJ1 1
+ R_OJ7 1
+ K_OJ1 1
+Net 3 "" ""
+ U_B1 4
+ C_B3 1
+Net 4 "" ""
+ C_PH1 1
+ IC_PH1 14
+ C_PH2 1
+Net 5 "" ""
+ Q_OJ2 3
+ D_OJ2 2
+Net 6 "" ""
+ Q_OJ2 2
+ R_OJ6 1
+Net 7 "/ATMISO" "ATMISO"
+ P_UC1 1
+ IC_UC2 21
+ R_OJ6 2
+ IC_UC1 18
+Net 8 "" ""
+ R_SL1 1
+ Q_SL1 2
+Net 9 "+5V" "+5V"
+ R_OJ2 1
+ R_UC1 2
+ R_OJ8 2
+ C_B2 1
+ P_E2 1
+ R_OJ4 2
+ R_OJ3 2
+ P_SL1 1
+ D_SL1 2
+ U_B1 2
+ C_B1 1
+ R_OJ7 2
+ P1 1
+ IC_UC1 7
+ R_OJ5 1
+ C_UC1 1
+ IC_UC1 20
+ P_UC2 1
+ IC_UC2 2
+ P_E1 1
+ P_UC1 2
+Net 10 "/OjitoRecepAd" "OjitoRecepAd"
+ IC_UC2 5
+ IC_UC1 4
+ K_OJ1 3
+ R_OJ3 1
+Net 11 "/EmisorA" "EmisorA"
+ P_E2 6
+ P_E2 3
+ Q_E1 3
+ P_E1 3
+ P_E1 6
+Net 12 "" ""
+ R_E1 1
+ Q_E1 2
+Net 13 "/ATMOSI" "ATMOSI"
+ IC_UC2 17
+ IC_UC1 17
+ R_E1 2
+ P_UC1 4
+Net 14 "/ATRESET" "ATRESET"
+ R_UC1 1
+ P_UC1 5
+ SW_UC1 1
+ IC_UC1 1
+Net 15 "/RecepA" "RecepA"
+ IC_UC1 10
+ IC_UC2 12
+ P_E1 4
+Net 16 "/RecepB" "RecepB"
+ IC_UC2 11
+ P_E1 5
+ IC_UC1 9
+Net 17 "" ""
+ C_OJ2 1
+ K_OJ2 1
+ R_OJ8 1
+Net 18 "/PwmD_2" "PwmD_2"
+ IC_UC2 25
+ IC_UC1 15
+ IC_PH1 10
+Net 19 "/PwmI_2" "PwmI_2"
+ IC_PH1 15
+ IC_UC1 11
+ IC_UC2 24
+Net 21 "/PwmI_1" "PwmI_1"
+ IC_UC2 23
+ IC_PH1 16
+ IC_UC1 12
+Net 22 "/RecepC" "RecepC"
+ IC_UC1 13
+ IC_UC2 13
+ P_E2 5
+Net 23 "/nFault" "nFault"
+ IC_UC2 28
+ IC_UC1 23
+ IC_PH1 8
+Net 24 "/RecepD" "RecepD"
+ IC_UC1 14
+ IC_UC2 14
+ P_E2 4
+Net 25 "/Puls" "Puls"
+ SW_Pl1 1
+ C_Pl1 1
+ IC_UC1 24
+ IC_UC2 29
+Net 26 "/Sole" "Sole"
+ IC_UC1 25
+ R_SL1 2
+ IC_UC2 30
+Net 27 "/PwmD_1" "PwmD_1"
+ IC_UC1 16
+ IC_UC2 26
+ IC_PH1 9
+Net 31 "/ATSCK" "ATSCK"
+ P_UC1 3
+ IC_UC1 19
+ IC_UC2 22
+ IC_PH1 1
+Net 32 "/MD_2" "MD_2"
+ IC_PH1 5
+ P_PH2 2
+Net 33 "/MD_1" "MD_1"
+ P_PH2 1
+ IC_PH1 7
+Net 34 "/MI_2" "MI_2"
+ IC_PH1 4
+ P_PH1 2
+Net 35 "/MI_1" "MI_1"
+ P_PH1 1
+ IC_PH1 2
+Net 36 "" ""
+ JP_B1 1
+ P_B1 1
+Net 37 "" ""
+ C_PH3 1
+ IC_PH1 11
+Net 38 "" ""
+ D_OJ2 1
+ R_OJ5 2
+Net 39 "" ""
+ D_OJ1 2
+ Q_OJ1 3
+Net 45 "/OjitoRecepAtr" "OjitoRecepAtr"
+ R_OJ4 1
+ K_OJ2 3
+ IC_UC1 5
+ IC_UC2 16
+Net 62 "" ""
+ Q_OJ1 2
+ R_OJ1 1
+Net 63 "/OjitosEmitAd" "OjitosEmitAd"
+ IC_UC1 6
+ R_OJ1 2
+ IC_UC2 6
+Net 64 "" ""
+ R_OJ2 2
+ D_OJ1 1
+Net 65 "" ""
+ D_SL1 1
+ Q_SL1 3
+ P_SL1 2
+Net 66 "/ATRX" "ATRX"
+ IC_UC1 2
+ P_UC2 2
+Net 67 "+BATT" "+BATT"
+ IC_PH1 12
+ U_B1 5
+ U_B1 1
+ C_B4 1
+ P2 1
+ C_PH3 2
+ C_PH4 1
+ C_PH5 1
+ JP_B1 2
+Net 68 "/ATTX" "ATTX"
+ IC_UC1 3
+ P_UC2 3
+}
+#End
