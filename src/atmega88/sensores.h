@@ -66,21 +66,21 @@
 #define PORT_RAT_NAME D
 #define RAT_NUMBER    3
 
-#define PORT_RPD  def_port_reg(PORT_RPD_NAME)
-#define PIN_RPD   def_pin_reg(PORT_RPD_NAME)
-#define DDR_RPD   def_ddr_reg(PORT_RPD_NAME)
+#define PORT_EAD  def_port_reg(PORT_EAD_NAME)
+#define PIN_EAD   def_pin_reg(PORT_EAD_NAME)
+#define DDR_EAD   def_ddr_reg(PORT_EAD_NAME)
 
-#define PORT_RPD  def_port_reg(PORT_RPD_NAME)
-#define PIN_RPD   def_pin_reg(PORT_RPD_NAME)
-#define DDR_RPD   def_ddr_reg(PORT_RPD_NAME)
+#define PORT_EAT  def_port_reg(PORT_EAT_NAME)
+#define PIN_EAT   def_pin_reg(PORT_EAT_NAME)
+#define DDR_EAT   def_ddr_reg(PORT_EAT_NAME)
 
-#define PORT_RPD  def_port_reg(PORT_RPD_NAME)
-#define PIN_RPD   def_pin_reg(PORT_RPD_NAME)
-#define DDR_RPD   def_ddr_reg(PORT_RPD_NAME)
+#define PORT_RAD  def_port_reg(PORT_RAD_NAME)
+#define PIN_RAD  def_pin_reg(PORT_RAD_NAME)
+#define DDR_RAD   def_ddr_reg(PORT_RAD_NAME)
 
-#define PORT_RPD  def_port_reg(PORT_RPD_NAME)
-#define PIN_RPD   def_pin_reg(PORT_RPD_NAME)
-#define DDR_RPD   def_ddr_reg(PORT_RPD_NAME)
+#define PORT_RAT  def_port_reg(PORT_RAT_NAME)
+#define PIN_RAT   def_pin_reg(PORT_RAT_NAME)
+#define DDR_RAT   def_ddr_reg(PORT_RAT_NAME)
 
 /* ----------------------------------------------------------------- */
 
@@ -127,9 +127,6 @@ void emisores_superior_on();
 void emisor_inf_on(void);
 void emisor_inf_off(void);
 int sensor_prendido(int num);
-
-
-
 
 
 #define SALIENDO_LINEA    170
