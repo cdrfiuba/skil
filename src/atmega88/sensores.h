@@ -21,12 +21,12 @@
 #define RPB_NUMBER    6
 
 /*RPC = Receptor Piso C*/
-#define PORT_RPB_NAME D
-#define RPB_NUMBER    7
+#define PORT_RPC_NAME D
+#define RPC_NUMBER    7
 
 /*RPD = Receptor Piso D*/
-#define PORT_RPB_NAME B
-#define RPB_NUMBER    0
+#define PORT_RPD_NAME B
+#define RPD_NUMBER    0
 
 #define PORT_EP  def_port_reg(PORT_EP_NAME)
 #define PIN_EP   def_pin_reg(PORT_EP_NAME)
@@ -84,8 +84,10 @@
 
 /* ----------------------------------------------------------------- */
 
-#define SEMIPERIODO_PORTADORA_US      13
-#define ANCHO_PULSO_SENIAL_US        600
+#define PRESCALER_EMISORES_SUP		1
+#define OCR_EMISORES_SUP			99
+#define CANT_PULSOS_ALTO_EM_SUP		13
+#define CANT_PULSOS_BAJO_EM_SUP		40
 #define  A1ON   0
 #define  A2ON   1
 #define  B1ON   2
@@ -137,5 +139,6 @@ extern volatile unsigned char analogSI;
 void configurar_adc();
 void leer_sensores_adc();
 
-
+void configurarPinSensoresSup (void);
+void configurarTimerSensoresSup (void);
 #endif

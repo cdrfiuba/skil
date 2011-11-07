@@ -29,7 +29,7 @@ LFUSE = 0xE2
 # SRC contiene el nombre de todos los .c existentes en el directorio actual
 SRC = motores.c sensores.c skil.c
 # INC contiene el nombre de todos los .h existentes en el directorio actual
-INC = skil.h motores.h sensores.h board.h definiciones.h
+INC = skil.h motores.h sensores.h definiciones.h
 
 # Flags de optimizacion '-Os' tamaño '-O3' velocidad
 # Si se deja -O vacio el compilador elige '-01'

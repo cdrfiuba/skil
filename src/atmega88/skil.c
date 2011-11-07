@@ -8,20 +8,25 @@
 
 volatile unsigned char estado;
 
+// Variable de estado de los emisores superiores
+// Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
+volatile uint16_t contPulsosEmSup;
+
 void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
 void actuar(void);
 
 int main (void) {
-  setup();
-  while(1){
-    leer_sensores_adc();
-	  if(estado != DETENIDO){
-      estado = actualizar_estado();
-      actuar();
-    }
-  }
+	contPulsosEmSup=0;
+	setup();
+	while(1){
+		leer_sensores_adc();
+		if(estado != DETENIDO){
+			estado = actualizar_estado();
+			actuar();
+		}
+	}
 }
 
 void setup (void) {
@@ -30,6 +35,8 @@ void setup (void) {
   configurarPulsador();
   Led1Init();
   estado = DETENIDO;
+  configurarPinSensoresSup();
+  configurarTimerSensoresSup();
   sei();
 }
 
@@ -140,6 +147,31 @@ ISR(INT1_vect) {
       estado = DETENIDO;
       ApagarMotores();
     }
+	}
+}
+
+
+ISR(TIMER2_COMPA_vect){
+	// Cuando se da la comparacion cambio el estado del pin solo si estoy en alto
+	// Hay una variable global que me dice si estoy en alto o en bajo
+	contPulsosEmSup++;
+	if(contPulsosEmSup <= CANT_PULSOS_ALTO_EM_SUP){
+		if(IsBitSet(PORT_EAD, EAD_NUMBER)){
+			ClearBit(PORT_EAD, EAD_NUMBER);
+		} else {
+			SetBit(PORT_EAD, EAD_NUMBER);
+		}
+		if(IsBitSet(PORT_EAT, EAT_NUMBER)){
+			ClearBit(PORT_EAT, EAT_NUMBER);
+		} else {
+			SetBit(PORT_EAT, EAT_NUMBER);
+		}
+	}else if((contPulsosEmSup >= CANT_PULSOS_ALTO_EM_SUP)&&(contPulsosEmSup <=
+	CANT_PULSOS_ALTO_EM_SUP+CANT_PULSOS_BAJO_EM_SUP )){
+		ClearBit(PORT_EAD, EAD_NUMBER);
+		ClearBit(PORT_EAT, EAT_NUMBER);
+	}else{
+		contPulsosEmSup=0;
 	}
 }
 
