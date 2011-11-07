@@ -3,7 +3,7 @@
 #include <util/delay.h>
 
 #include "motores.h"
-#include "sensores.h"
+//#include "sensores.h"
 #include "skil.h"
 
 volatile unsigned char estado;
@@ -15,24 +15,34 @@ void actuar(void);
 
 int main (void) {
   setup();
+  EncenderMotores();
   while(1){
-    leer_sensores_adc();
-	  if(estado != DETENIDO){
-      estado = actualizar_estado();
-      actuar();
-    }
+    MoverAdelante();
+    _delay_ms(1000);
+    MoverAtras();
+    _delay_ms(1000);
+    GirarIzquierda();
+    _delay_ms(1000);
+    GirarDerecha();
+    _delay_ms(1000);
+//    leer_sensores_adc();
+//	  if(estado != DETENIDO){
+//      estado = actualizar_estado();
+//      actuar();
+    
   }
 }
 
 void setup (void) {
-  configurar_motores();
-  configurar_adc();
-  configurarPulsador();
-  Led1Init();
-  estado = DETENIDO;
+  ConfigurarMotores();
+//  configurar_adc();
+//  configurarPulsador();
+//  Led1Init();
+//  estado = DETENIDO;
   sei();
 }
 
+/*
 unsigned char actualizar_estado(void) {
 //  if (estado == DETENIDO)
 //      return DETENIDO;
@@ -53,8 +63,9 @@ unsigned char actualizar_estado(void) {
   if((analogSD >= SALIENDO_LINEA) && (analogSI < SALIENDO_LINEA))
     return SALIENDO_DER;
   
-  return DETENIDO; /* no deberia llegar aca */
+  return DETENIDO; // no deberia llegar aca
 }
+*/
 
 /*
 void actuar (void) {
@@ -85,6 +96,8 @@ void actuar (void) {
   }
 }
 */
+
+/*
 void actuar (void) {
   switch(estado){
     case EN_LINEA:
@@ -107,7 +120,7 @@ void actuar (void) {
       break;
   }
 }
-
+*/
 void configurarPulsador(void){
 	PulsadorInit();
 	// Configuracion de modo de interrupcion (pagina 73)

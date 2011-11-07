@@ -30,7 +30,7 @@ static inline void dec_vel_mi(void){
   if (velMI < VEL_MAX_ADELANTE) velMI++;
 }
 */
-void configurar_motores(void) {
+void ConfigurarMotores(void) {
   SetBit(DDR_NSLEEP,NSLEEP_NUMBER);
   ClearBit(DDR_NFAULT,NFAULT_NUMBER);
   ClearBit(PORT_NSLEEP,NSLEEP_NUMBER);
@@ -43,7 +43,7 @@ void configurar_motores(void) {
 
   SetBit(DDR_MD_IN1,MD_IN1_NUMBER);
   SetBit(DDR_MD_IN2,MD_IN2_NUMBER);
-  TCCR1A = (1<<COM0A1) | (1<<COM0A0) | (1<<COM0B1) | (0<<COM0B0) | (0<<WGM11) | (1<<WGM10);
+  TCCR1A = (1<<COM0A1) | (0<<COM0A0) | (1<<COM0B1) | (1<<COM0B0) | (0<<WGM11) | (1<<WGM10);
   TCCR1B = (0<<WGM13) | (1<<WGM12);
 
   ApagarMotores();
