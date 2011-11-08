@@ -6,6 +6,12 @@
 
 /*-----------------------------------------------*/
 /* Definiciones de los pines correspondientes a los sensores */
+// Defino las mascaras para la interrupcion
+#define MASK_INT_SENSA	(~(1<<PB7))
+#define MASK_INT_SENSB	(~(1<<PB6))
+#define MASK_INT_SENSC	(~((1<<PD7)>>2))
+#define MASK_INT_SENSD	(~(1<<PB0))
+#define MASK_INT_PORT (~((1<<PB7)|(1<<PB6)|(1<<PB0)))
 
 /* Sensores Inferiores */
 /*EP = Emisor Piso*/

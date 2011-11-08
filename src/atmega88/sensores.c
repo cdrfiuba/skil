@@ -1,37 +1,11 @@
 #include "definiciones.h"
 #include "sensores.h"
 
-volatile unsigned char analogSD;
-volatile unsigned char analogSI;
-
-void configurar_adc() {
-  ClearBit(ADMUX, REFS1);  // Agregado para que el ADC use referencia inteAVCCC
-  SetBit(ADMUX, REFS0);    // Idem
-  SetBit(ADMUX, ADLAR);    // Queremos Left-Adjusted (ver pagina 267)
-  ADCPrescalerSelec(2);
-	ClearBit(ADCSRA, ADIE);
-  SetBit(ADCSRA, ADEN);
-}
-
-void leer_sensores_adc() {
-  ADSeleccionarCanal(ADC_NUM_SD);
-  IniciarConversion();
-  while (IsBitSet(ADCSRA,ADIF)==false);
-  SetBit(ADCSRA,ADIF);
-  analogSD = ADCH;
-
-  ADSeleccionarCanal(ADC_NUM_SI);
-  IniciarConversion();
-  while (IsBitSet(ADCSRA,ADIF)==false);
-  SetBit(ADCSRA,ADIF);
-  analogSI = ADCH;
-}
-
 void configurarPinSensoresSup () {
 	SetBit(DDR_EAD, EAD_NUMBER);
-	ClearBit(DDR_EAD, EAD_NUMBER);
+	ClearBit(PORT_EAD, EAD_NUMBER);
 	SetBit(DDR_EAT, EAT_NUMBER);
-	ClearBit(DDR_EAT, EAT_NUMBER);
+	ClearBit(PORT_EAT, EAT_NUMBER);
 }
 
 void configurarTimerSensoresSup () {
@@ -75,8 +49,28 @@ void configurarTimerSensoresSup () {
 	#endif	
 
 	TCNT2 = 0;
-	OCR2A = OCR_EMISOR_SUP;
+	OCR2A = OCR_EMISORES_SUP;
 
 	// CTC esta con OCR2A
-	TIMSK = (0<<OCIE2B)|(1<<OCIE2A)|(0<<TOIE2);
+	TIMSK2 = (0<<OCIE2B)|(1<<OCIE2A)|(0<<TOIE2);
+}
+
+void configurarPinSensoresInf(){
+	// Configuro los leds de los sensores en salida
+	SetBit(DDR_EP, EP_NUMBER);
+	ClearBit(PORT_EP, EP_NUMBER);
+
+	// Configuro todos los sensores en entrada sin pull-up
+	ClearBit(DDR_RPA, RPA_NUMBER);
+	ClearBit(PORT_RPA, RPA_NUMBER);
+	ClearBit(DDR_RPB, RPB_NUMBER);
+	ClearBit(PORT_RPB, RPB_NUMBER);
+	ClearBit(DDR_RPC, RPC_NUMBER);
+	ClearBit(PORT_RPC, RPC_NUMBER);
+	ClearBit(DDR_RPD, RPD_NUMBER);
+	ClearBit(PORT_RPD, RPD_NUMBER);
+
+	PCICR |= (1<<PCIE2)|(1<<PCIE0);
+	PCMSK2 |= (1<<PCINT23);
+	PCMSK0 |= (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT0);
 }

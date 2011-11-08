@@ -21,12 +21,16 @@
 
 /* ----------------------------------------------------- */
 
-#define SALIENDO_DER   'a'
-#define SALIENDO_IZQ   'b'
-#define AFUERA_DER     'c'
-#define AFUERA_IZQ     'd'
-#define EN_LINEA       'e'
-#define DETENIDO       'f'
+typedef enum {
+	FIGHT,
+	SALIENDO_DER,
+	SALIENDO_IZQ,
+	AFUERA_DER,
+	AFUERA_IZQ,
+	TRACKING,
+	DETENIDO 
+} estados;
 
-
+void configurarPulsador(void);
+void movimientoPrueba(void);
 #endif
