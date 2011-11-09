@@ -7,6 +7,11 @@
 #include "skil.h"
 
 volatile estados estado;
+volatile estadosInf estadoInf;
+volatile estadosTracking estadoInterno;
+volatile uint8_t sensoresInf;
+volatile uint8_t cantVeces;
+
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
@@ -18,28 +23,49 @@ void actuar(void);
 
 int main (void) {
 	contPulsosEmSup=0;
+	sensoresInf=0xFF;
+	estadoInf=OK;
+	cantVeces=0;
 	setup();
 	while(1){
-		switch(estado){
-			case FIGHT:
-			case TRACKING:
-				//accionTracking();
-				movimientoPrueba();
+		setearSensoresInf();
+		switch (estadoInf){
+			case OK:
+				switch(estado){
+					case FIGHT:
+						//accionFight();
+						break;
+					case TRACKING:
+						//accionTracking();
+						MoverAdelante();
+						EncenderMotores();
+						break;
+				    case DETENIDO:
+						ApagarMotores();
+						break;
+				    default: 
+						break;
+				}
 				break;
-		    case ADELANTE_DER:
-				MoverAdelante();
+			case ADELANTE_DER:
+				accionAdelanteDer();
 				break;
-		    case ADELANTE_IZQ:
-				GirarIzquierda();
+			case ADELANTE_IZQ:
+				accionAdelanteIzq();
 				break;
-		    case ATRAS_DER:
-				GirarDerecha();
+			case ATRAS_DER:
+				accionAtrasDer();
 				break;
-		    case ATRAS_IZQ:
-				MoverAtras();
+			case ATRAS_IZQ:
+				accionAtrasIzq();
 				break;
-		    case DETENIDO:
-		    default: 
+			case ATRAS:
+				accionAtrasInf();
+				break;
+			case ADELANTE:
+				accionAdelanteInf();
+				break;
+			default:
 				ApagarMotores();
 				break;
 		}
@@ -48,11 +74,45 @@ int main (void) {
 
 void setup (void) {
 	ConfigurarMotores();
-	configurarPinSensoresSup();
-	configurarTimerSensoresSup();
+	//configurarPinSensoresSup();
+	configurarPinSensoresInf();
+	//configurarTimerSensoresSup();
 	configurarPulsador();
 	estado = DETENIDO;
 	sei();
+}
+void configurarPulsador(void){
+	PulsadorInit();
+	// Configuro el pin change
+	PCICR |= (1<<PCIE1);
+	PCMSK1 = (1<<PCINT9);
+}
+
+void setearSensoresInf(void){
+	switch(sensoresInf){
+		case MASK_INT_SENSA: 
+			estadoInf = ADELANTE_IZQ;
+			break;
+		case MASK_INT_SENSB: 
+			estadoInf = ADELANTE_DER;
+			break;
+		case MASK_INT_SENSD: 
+			estadoInf = ATRAS_DER;
+			break;
+		// Esta cabeza por que no funciona rotar la mascara
+		case 0xDF: 
+			estadoInf = ATRAS_IZQ;
+			break;
+		case (MASK_INT_SENSA & MASK_INT_SENSB): 
+			estadoInf = ADELANTE;
+			break;
+		case (MASK_INT_SENSC & MASK_INT_SENSD): 
+			estadoInf = ATRAS;
+			break;
+		default:
+			estadoInf=OK;
+			break;
+	}
 }
 
 void movimientoPrueba(void){
@@ -65,65 +125,92 @@ void movimientoPrueba(void){
 	GirarDerecha();
 	_delay_ms(1000);
 }
-
-void actuar (void) {
-  switch(estado){
-    case FIGHT:
-    case TRACKING:
-      //accionTracking();
-	  movimientoPrueba();
-      break;
-    case ADELANTE_DER:
-	  MoverAdelante();
-      break;
-    case ADELANTE_IZQ:
-	  GirarIzquierda();
-      break;
-    case ATRAS_DER:
-	  GirarDerecha();
-      break;
-    case ATRAS_IZQ:
-	  MoverAtras();
-      break;
-    case DETENIDO:
-    default: 
-	  ApagarMotores();
-      break;
-  }
+void accionFight(void){
+	movimientoPrueba();	
+}
+void accionTracking(void){
+	// Tiene que buscar al oponente. Podemos girar en el lugar 180 y movernos un poco hasta que lo encontramos.
+	switch (estadoInterno){
+	case GIRANDO_DERECHA:
+		if (cantVeces <= CANT_REPETICIONES){
+			GirarDerecha();
+			cantVeces++;
+		} else {
+			estadoInterno = ADELANTANDO;
+			cantVeces = 0;
+		}
+		break;
+	case GIRANDO_IZQUIERDA:
+		if (cantVeces <= CANT_REPETICIONES){
+			GirarIzquierda();
+			cantVeces++;
+		} else {
+			estadoInterno = ATRAZANDO;
+			cantVeces = 0;
+		}
+		break;
+	case ADELANTANDO:
+		if (cantVeces <= CANT_REPETICIONES){
+			MoverAdelante();
+			cantVeces++;
+		} else {
+			estadoInterno = GIRANDO_IZQUIERDA;
+			cantVeces = 0;
+		}
+		break;
+	case ATRAZANDO:
+		if (cantVeces <= CANT_REPETICIONES){
+			MoverAtras();
+			cantVeces++;
+		} else {
+			estadoInterno = GIRANDO_DERECHA;
+			cantVeces = 0;
+		}
+		break;
+	}
+	EncenderMotores();
+}
+void accionAdelanteDer(void){
+	MoverAtras();
+	EncenderMotores();
+}
+void accionAdelanteIzq(void){
+	MoverAtras();
+	EncenderMotores();
+}
+void accionAtrasDer(void){
+	MoverAdelante();
+	EncenderMotores();
+}
+void accionAtrasIzq(void){
+	MoverAdelante();
+	EncenderMotores();
+}
+void accionAtrasInf(void){
+	MoverAdelante();
+	EncenderMotores();
+}
+void accionAdelanteInf(void){
+	MoverAtras();
+	EncenderMotores();
 }
 
-void configurarPulsador(void){
-	PulsadorInit();
-	// Configuro el pin change
-	PCICR |= (1<<PCIE1);
-	PCMSK1 |= (1<<PCINT9);
-}
 ISR(PCINT2_vect) {
-	sensoresInf &= ((PIN_RPC>>2) | MASK_INT_SENSC);
+	uint8_t aux = (PIN_RPC | MASK_INT_SENSC);
+	if(aux == 0xFF){
+		sensoresInf |= ((1<<RPC_NUMBER)>>2);
+	} else {
+		sensoresInf &= ~((1<<RPC_NUMBER)>>2);
+	}
 }
 
 ISR(PCINT0_vect) {
-	sensoresInf &= PIN_RPA;
-}
-
-void setearSensoresInf(sensoresInf){
-	switch(aux | MASK_INT_PORT){
-		case MASK_INT_SENSA: 
-			estado = ADELANTE_IZQ;
-			break;
-		case MASK_INT_SENSB: 
-			estado = ADELANTE_DER;
-			break;
-		case MASK_INT_SENSD: 
-			estado = ATRAS_DER;
-			break;
-		case (MASK_INT_SENSA & MASK_INT_SENSB): 
-			estado = ADELANTE_INF;
-			break;
-	asdasdasd
-			estado = ATRAS_IZQ;
-		default:
-			break;
+	// Uso directamente el PINB por que estan todos ahi.
+	uint8_t aux = (PINB | MASK_INT_PORT);
+	if(aux == 0xFF){
+		sensoresInf |= ((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPD_NUMBER));
+	} else {
+		sensoresInf &= aux;
 	}
 }
 
@@ -131,9 +218,9 @@ ISR(PCINT1_vect) {
 	// Delay para debounce
 	// Dado que no tenemos necesidad de hacer nada mientras esperamos por el
 	// debounce lo dejamos asi. Sino, deberiamos utilizar algun timer
-	_delay_ms(50);
+	_delay_ms(10);
 
-	if (IsPulsadorSet()==false) { 
+	if (IsPulsadorSet()==true) { 
 		// significa que esta en 1 y hubo flanco ascendente genuino
 		// se podria reemplazar la variable por poner apagar todo, poner 
 		// el micro a dormir esperando solo esta interrupcion y luego

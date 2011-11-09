@@ -20,17 +20,41 @@
 #define IsPulsadorSet()   IsBitSet(PIN_PULSADOR, PULSADOR_NUMBER)
 
 /* ----------------------------------------------------- */
+#define CANT_REPETICIONES 10
 
 typedef enum {
 	FIGHT,
-	SALIENDO_DER,
-	SALIENDO_IZQ,
-	AFUERA_DER,
-	AFUERA_IZQ,
 	TRACKING,
-	DETENIDO 
+	DETENIDO
 } estados;
 
+typedef enum {
+	ADELANTE_DER,
+	ADELANTE_IZQ,
+	ATRAS_DER,
+	ATRAS_IZQ,
+	ATRAS,
+	ADELANTE,
+	OK
+} estadosInf;
+
+typedef enum {
+	GIRANDO_DERECHA,
+	GIRANDO_IZQUIERDA,
+	ADELANTANDO,
+	ATRAZANDO
+} estadosTracking;
+
+void setearSensoresInf(void);
 void configurarPulsador(void);
 void movimientoPrueba(void);
+void accionFight(void);
+void accionTracking(void);
+void accionAdelanteDer(void);
+void accionAdelanteIzq(void);
+void accionAtrasDer(void);
+void accionAtrasIzq(void);
+void accionAtrasInf(void);
+void accionAdelanteInf(void);
+
 #endif
