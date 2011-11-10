@@ -28,12 +28,19 @@ int main (void) {
 	cantVeces=0;
 	setup();
 	while(1){
-		setearSensoresInf();
-		switch (estadoInf){
+
+        _delay_ms(100);
+    
+    }
+		//setearSensoresInf();
+   		switch (estadoInf){
 			case OK:
 				switch(estado){
-					case FIGHT:
-						//accionFight();
+					case FIGHT_ADELANTE:
+				//		accionFightAdelante();
+						break;
+                    case FIGHT_ATRAS:
+			//			accionFightAtras();
 						break;
 					case TRACKING:
 						//accionTracking();
@@ -68,16 +75,16 @@ int main (void) {
 			default:
 				ApagarMotores();
 				break;
-		}
+		//}
 	}
 }
 
 void setup (void) {
-	ConfigurarMotores();
-	//configurarPinSensoresSup();
-	configurarPinSensoresInf();
-	//configurarTimerSensoresSup();
-	configurarPulsador();
+	//ConfigurarMotores();
+	configurarPinSensoresSup();
+	//configurarPinSensoresInf();
+	configurarTimerSensoresSup();
+	//configurarPulsador();
 	estado = DETENIDO;
 	sei();
 }
@@ -89,6 +96,10 @@ void configurarPulsador(void){
 }
 
 void setearSensoresInf(void){
+
+   sensoresInf = DETENIDO; //SACAR!!!!!!!!!!!!!!!!!
+        
+
 	switch(sensoresInf){
 		case MASK_INT_SENSA: 
 			estadoInf = ADELANTE_IZQ;
@@ -244,9 +255,17 @@ ISR(TIMER2_COMPA_vect){
 		SetBit(PIN_EAT, EAT_NUMBER);
 	}else if((contPulsosEmSup >= CANT_PULSOS_ALTO_EM_SUP)&&(contPulsosEmSup <=
 	CANT_PULSOS_ALTO_EM_SUP+CANT_PULSOS_BAJO_EM_SUP )){
-		ClearBit(PORT_EAD, EAD_NUMBER);
-		ClearBit(PORT_EAT, EAT_NUMBER);
+		SetBit(PORT_EAD, EAD_NUMBER);
+		SetBit(PORT_EAT, EAT_NUMBER);
 	}else{
 		contPulsosEmSup=0;
 	}
+}
+
+ISR(INT0_vect){
+    estado = FIGHT_ADELANTE;
+}
+
+ISR(INT1_vect){
+    estado = FIGHT_ATRAS;
 }

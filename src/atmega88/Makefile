@@ -12,7 +12,7 @@ MMCU = atmega88pa
 # Para el Atemga88: m88
 # Para ver el listado de posibles opciones hacer:
 #      avrdude -p ?
-TARGET_P = m88pa
+TARGET_P = m88
 
 # HFUSE 
 # Para el Atmega88 (pagina 299)
@@ -46,7 +46,7 @@ hex: $(SRC) $(INC)
 	avr-size $(TARGET).bin
 
 program: hex
-	avrdude -c usbtiny -p $(TARGET_P) -U flash:w:$(TARGET).hex:i
+	avrdude -F -c usbtiny -p $(TARGET_P) -U flash:w:$(TARGET).hex:i
 
 # asm: $(SRC) $(INC)
 # 	avr-gcc -mmcu=$(MMCU) $(CFLAGS) $(CDEFINES) -S -o $(TARGET).s motores.c

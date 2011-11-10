@@ -23,7 +23,8 @@
 #define CANT_REPETICIONES 10
 
 typedef enum {
-	FIGHT,
+	FIGHT_ADELANTE,
+    FIGHT_ATRAS,
 	TRACKING,
 	DETENIDO
 } estados;

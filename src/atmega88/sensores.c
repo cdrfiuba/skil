@@ -6,6 +6,16 @@ void configurarPinSensoresSup () {
 	ClearBit(PORT_EAD, EAD_NUMBER);
 	SetBit(DDR_EAT, EAT_NUMBER);
 	ClearBit(PORT_EAT, EAT_NUMBER);
+
+    ClearBit(DDR_RAD, RAD_NUMBER);
+	SetBit(PORT_RAD, RAD_NUMBER);
+	ClearBit(DDR_RAT, RAT_NUMBER);
+	SetBit(PORT_RAT, RAT_NUMBER);
+
+
+    EICRA = (1<<ISC11) | (0<<ISC10) | (1<<ISC01) | (0<<ISC00);
+    EIMSK = (1<<INT1) | (1<<INT0);
+
 }
 
 void configurarTimerSensoresSup () {
