@@ -11,7 +11,7 @@ volatile estadosInf estadoInf;
 volatile estadosTracking estadoInterno;
 volatile uint8_t sensoresInf;
 volatile uint8_t cantVeces;
-
+volatile uint8_t auxContador;
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
@@ -22,30 +22,35 @@ unsigned char actualizar_estado(void);
 void actuar(void);
 
 int main (void) {
-	contPulsosEmSup=0;
-	sensoresInf=0xFF;
-	estadoInf=OK;
-	cantVeces=0;
+	contPulsosEmSup = 0;
+	sensoresInf = 0xFF;
+	estadoInf = OK;
+    cantVeces = 0;
 	setup();
-	while(1){
+    activarSolenoide();
 
-        _delay_ms(100);
-    
-    }
-		//setearSensoresInf();
-   		switch (estadoInf){
+    estado = TRACKING;
+
+	while(1){
+   		setearSensoresInf();
+  
+        switch (estadoInf){
 			case OK:
 				switch(estado){
 					case FIGHT_ADELANTE:
-				//		accionFightAdelante();
+						accionFightAdelante();
+                        _delay_ms(100);
+                        estado = TRACKING;
 						break;
                     case FIGHT_ATRAS:
-			//			accionFightAtras();
+						accionFightAtras();
+                        _delay_ms(100);
+                        estado = TRACKING;
 						break;
 					case TRACKING:
 						//accionTracking();
-						MoverAdelante();
-						EncenderMotores();
+                       	GirarIzquierda();
+                        EncenderMotores();
 						break;
 				    case DETENIDO:
 						ApagarMotores();
@@ -75,16 +80,17 @@ int main (void) {
 			default:
 				ApagarMotores();
 				break;
-		//}
+		}
 	}
 }
 
 void setup (void) {
-	//ConfigurarMotores();
+	ConfigurarMotores();
+    configurarSolenoide();
 	configurarPinSensoresSup();
-	//configurarPinSensoresInf();
+	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
-	//configurarPulsador();
+	configurarPulsador();
 	estado = DETENIDO;
 	sei();
 }
@@ -95,12 +101,13 @@ void configurarPulsador(void){
 	PCMSK1 = (1<<PCINT9);
 }
 
+void configurarSolenoide(void){
+    SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
+}
+
 void setearSensoresInf(void){
 
-   sensoresInf = DETENIDO; //SACAR!!!!!!!!!!!!!!!!!
-        
-
-	switch(sensoresInf){
+    switch(sensoresInf){
 		case MASK_INT_SENSA: 
 			estadoInf = ADELANTE_IZQ;
 			break;
@@ -121,7 +128,7 @@ void setearSensoresInf(void){
 			estadoInf = ATRAS;
 			break;
 		default:
-			estadoInf=OK;
+			estadoInf = OK;
 			break;
 	}
 }
@@ -136,9 +143,7 @@ void movimientoPrueba(void){
 	GirarDerecha();
 	_delay_ms(1000);
 }
-void accionFight(void){
-	movimientoPrueba();	
-}
+
 void accionTracking(void){
 	// Tiene que buscar al oponente. Podemos girar en el lugar 180 y movernos un poco hasta que lo encontramos.
 	switch (estadoInterno){
@@ -181,29 +186,53 @@ void accionTracking(void){
 	}
 	EncenderMotores();
 }
+
+void activarSolenoide(void){
+    SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
+    _delay_ms(1000);
+    ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
+}
+
+void accionFightAdelante(void){
+	MoverAdelante();
+	EncenderMotores();
+}
+
+void accionFightAtras(void){
+	MoverAtras();	
+   	EncenderMotores();
+}
+
+/*Accion de las funciones que actuan segun que sensor inferior sale del tatami*/
 void accionAdelanteDer(void){
 	MoverAtras();
 	EncenderMotores();
+    _delay_ms(250);
 }
 void accionAdelanteIzq(void){
 	MoverAtras();
 	EncenderMotores();
+    _delay_ms(250);
 }
 void accionAtrasDer(void){
 	MoverAdelante();
 	EncenderMotores();
+    _delay_ms(250);
 }
 void accionAtrasIzq(void){
 	MoverAdelante();
 	EncenderMotores();
+    _delay_ms(250);
 }
 void accionAtrasInf(void){
 	MoverAdelante();
 	EncenderMotores();
+    _delay_ms(250);
 }
 void accionAdelanteInf(void){
 	MoverAtras();
 	EncenderMotores();
+    _delay_ms(250);
 }
 
 ISR(PCINT2_vect) {
@@ -258,14 +287,24 @@ ISR(TIMER2_COMPA_vect){
 		SetBit(PORT_EAD, EAD_NUMBER);
 		SetBit(PORT_EAT, EAT_NUMBER);
 	}else{
-		contPulsosEmSup=0;
+		contPulsosEmSup = 0;
 	}
 }
 
 ISR(INT0_vect){
+
+    if(estado == DETENIDO) return;
+    
     estado = FIGHT_ADELANTE;
 }
 
-ISR(INT1_vect){
+ISR(INT1_vect){  
+    
+    if(estado == DETENIDO) return;
+    
     estado = FIGHT_ATRAS;
 }
+
+
+
+

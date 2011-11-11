@@ -7,9 +7,17 @@
 #define PORT_PULSADOR_NAME   C
 #define PULSADOR_NUMBER      1
 
+#define PORT_SOLENOIDE_NAME   C
+#define SOLENOIDE_NUMBER      2
+
 #define PORT_PULSADOR  def_port_reg(PORT_PULSADOR_NAME)
 #define PIN_PULSADOR   def_pin_reg(PORT_PULSADOR_NAME)
 #define DDR_PULSADOR   def_ddr_reg(PORT_PULSADOR_NAME)
+
+#define PORT_SOLENOIDE  def_port_reg(PORT_SOLENOIDE_NAME)
+#define PIN_SOLENOIDE  def_pin_reg(PORT_SOLENOIDE_NAME)
+#define DDR_SOLENOIDE   def_ddr_reg(PORT_SOLENOIDE_NAME)
+
 
 /* Macros */
 // Se setea como entrada y se pone el pin en '1'. Esto último hace que se 
@@ -49,7 +57,8 @@ typedef enum {
 void setearSensoresInf(void);
 void configurarPulsador(void);
 void movimientoPrueba(void);
-void accionFight(void);
+void accionFightAdelante(void);
+void accionFightAtras(void);
 void accionTracking(void);
 void accionAdelanteDer(void);
 void accionAdelanteIzq(void);
@@ -57,5 +66,7 @@ void accionAtrasDer(void);
 void accionAtrasIzq(void);
 void accionAtrasInf(void);
 void accionAdelanteInf(void);
+void activarSolenoide(void);
+void configurarSolenoide(void);
 
 #endif
