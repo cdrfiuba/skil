@@ -66,7 +66,7 @@
 
 /* ------------------------------------------------------ */
 
-#define VEL_DETENIDO      0x80
+#define VEL_DETENIDO   0x80
 #define VEL_ADELANTE   0xC0
 #define VEL_ATRAS      0x40
 
