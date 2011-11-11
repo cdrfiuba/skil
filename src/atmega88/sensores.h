@@ -6,17 +6,6 @@
 
 /*-----------------------------------------------*/
 /* Definiciones de los pines correspondientes a los sensores */
-// Defino las mascaras para la interrupcion
-//#define MASK_INT_SENSA	(~(1<<PB7))
-#define MASK_INT_SENSA	0x7F
-//#define MASK_INT_SENSB	(~(1<<PB6))
-#define MASK_INT_SENSB	0xBF
-//#define MASK_INT_SENSC	(~((1<<PD7)>>2))
-#define MASK_INT_SENSC	0x7F
-//#define MASK_INT_SENSD	(~(1<<PB0))
-#define MASK_INT_SENSD	0xFE	
-//#define MASK_INT_PORT (~((1<<PB7)|(1<<PB6)|(1<<PB0)))
-#define MASK_INT_PORT 0x3E
 
 /* Sensores Inferiores */
 /*EP = Emisor Piso*/
@@ -93,6 +82,16 @@
 #define PIN_RAT   def_pin_reg(PORT_RAT_NAME)
 #define DDR_RAT   def_ddr_reg(PORT_RAT_NAME)
 
+
+// Defino las mascaras para la interrupcion
+#define MASK_INT_SENSA	(uint8_t)(~(1<<RPA_NUMBER)) // 0x7F
+#define MASK_INT_SENSB	(uint8_t)(~(1<<RPB_NUMBER)) // 0xBF
+#define MASK_INT_SENSC	(uint8_t)(~(1<<RPC_NUMBER)) // 0x7F
+#define MASK_INT_SENSC_2	(uint8_t)(~((1<<RPC_NUMBER)>>2))  // 0xDF
+#define MASK_INT_SENSD	(uint8_t)(~(1<<RPD_NUMBER)) // 0xFE
+#define MASK_INT_PORT (~ ((uint8_t)((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPD_NUMBER))) ) // 0x3E
+
+
 /* ----------------------------------------------------------------- */
 
 #define PRESCALER_EMISORES_SUP		1
@@ -141,6 +140,7 @@ void emisor_inf_on(void);
 void emisor_inf_off(void);
 int sensor_prendido(int num);
 
+void encenderEmisorSuperior();
 
 #define encenderEmisorInferior()   SetBit(PORT_EP, EP_NUMBER);
 #define apagarEmisorInferior()     ClearBit(PORT_EP, EP_NUMBER);

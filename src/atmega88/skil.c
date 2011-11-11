@@ -17,12 +17,15 @@ volatile uint8_t flagInf = 0;
 #define energizarSolenoide()     SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
 #define desenergizarSolenoide()  ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
 
+#define DELAY_ESTADO    5  //  en milisegundos
+
 extern unsigned char velMI;
 extern unsigned char velMD;
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
 volatile uint8_t contPulsosEmSup;
+
 void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
@@ -49,17 +52,16 @@ int main (void) {
           case FIGHT_ADELANTE:
             accionFightAdelante();
             estado = TRACKING;
-            _delay_ms(10);
+            _delay_ms(DELAY_ESTADO);
             break;
           case FIGHT_ATRAS:
             accionFightAtras();
             estado = TRACKING;
-            _delay_ms(10);
+            _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
             //accionTracking();
             GirarIzquierda();
-//              EncenderMotores();
             break;
           case DETENIDO:
           default: 
@@ -102,10 +104,11 @@ void setup (void) {
   energizarSolenoide();
 
 	estado = DETENIDO;
+	estadoInterno = ADELANTANDO;
+  cantVeces = 0;
 	contPulsosEmSup = 0;
 	sensoresInf = 0xFF;
 	estadoInf = OK;
-  cantVeces = 0;
 	sei();
 }
 
@@ -121,11 +124,7 @@ void configurarSolenoide(void){
 }
 
 void setearSensoresInf(void){
-
-//    //Esto es para que el robot no arranque solo si lo forzamos a detenerse
-//    if(estado == DETENIDO) return;
-
-    switch(sensoresInf){
+  switch(sensoresInf){
 		case MASK_INT_SENSA: 
 			estadoInf = ADELANTE_IZQ;
 			break;
@@ -135,8 +134,7 @@ void setearSensoresInf(void){
 		case MASK_INT_SENSD: 
 			estadoInf = ATRAS_DER;
 			break;
-		// Esta cabeza por que no funciona rotar la mascara
-		case 0xDF: 
+		case MASK_INT_SENSC_2: 
 			estadoInf = ATRAS_IZQ;
 			break;
 		case (MASK_INT_SENSA & MASK_INT_SENSB): 
@@ -202,7 +200,6 @@ void accionTracking(void){
 		}
 		break;
 	}
-	EncenderMotores();
 }
 
 
