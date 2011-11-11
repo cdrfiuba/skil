@@ -14,6 +14,8 @@ volatile uint8_t cantVeces;
 volatile uint8_t auxContador;
 volatile uint8_t flagInf = 0;
 
+#define energizarSolenoide()     SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
+#define desenergizarSolenoide()  ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
 
 extern unsigned char velMI;
 extern unsigned char velMD;
@@ -27,85 +29,84 @@ unsigned char actualizar_estado(void);
 void actuar(void);
 
 int main (void) {
-	contPulsosEmSup = 0;
-	sensoresInf = 0xFF;
-	estadoInf = OK;
-    cantVeces = 0;
 	setup();
-    activarSolenoide();
-
-    estado = TRACKING;
+  while (estado==DETENIDO);
+  _delay_ms(1); //tiempo de espera para bajar pollera
+  desenergizarSolenoide();
+  estado = TRACKING;
 
 	while(1){
+    setearSensoresInf();
 
-   		setearSensoresInf();
-  
         //Para probar los sensores superiores ignoro el estado de los senosres inferiores
         //estadoInf = OK;
 
-        if (estado != DETENIDO){
-            switch (estadoInf){
-			    case OK:
-				    switch(estado){
-					    case FIGHT_ADELANTE:
-						    accionFightAdelante();
-                            _delay_ms(500);
-                            estado = TRACKING;
-						    break;
-                        case FIGHT_ATRAS:
-						    accionFightAtras();
-                            _delay_ms(500);
-                            estado = TRACKING;
-						    break;
-					    case TRACKING:
-						    //accionTracking();
-                            GirarIzquierda();
-                            EncenderMotores();
-                           	break;
-				        case DETENIDO:
-						    ApagarMotores();
-						    break;
-				        default: 
-						    break;
-				    }
-				    break;
-			    case ADELANTE_DER:
-				    accionAdelanteDer();
-				    break;
-			    case ADELANTE_IZQ:
-				    accionAdelanteIzq();
-				    break;
-			    case ATRAS_DER:
-				    accionAtrasDer();
-				    break;
-			    case ATRAS_IZQ:
-				    accionAtrasIzq();
-				    break;
-			    case ATRAS:
-				    accionAtrasInf();
-				    break;
-			    case ADELANTE:
-				    accionAdelanteInf();
-				    break;
-			    default:
-				    ApagarMotores();
-				    break;
+      switch (estadoInf){
+			  case OK:
+				  switch(estado){
+					  case FIGHT_ADELANTE:
+					    accionFightAdelante();
+              _delay_ms(500);
+              estado = TRACKING;
+						  break;
+            case FIGHT_ATRAS:
+		          accionFightAtras();
+              _delay_ms(500);
+              estado = TRACKING;
+						  break;
+					  case TRACKING:
+						  //accionTracking();
+              GirarIzquierda();
+//              EncenderMotores();
+              break;
+				    case DETENIDO:
+				    default: 
+						  ApagarMotores();
+						  break;
+				  }
+				  break;
+			  case ADELANTE_DER:
+			    accionAdelanteDer();
+				  break;
+			  case ADELANTE_IZQ:
+				  accionAdelanteIzq();
+				  break;
+			  case ATRAS_DER:
+				  accionAtrasDer();
+				  break;
+			  case ATRAS_IZQ:
+				  accionAtrasIzq();
+				  break;
+			  case ATRAS:
+				  accionAtrasInf();
+				  break;
+			  case ADELANTE:
+				  accionAdelanteInf();
+				  break;
+			  default:
+				  ApagarMotores();
+				  break;
 		    }
-	    }
-        else ApagarMotores();
     }
 }
 
 void setup (void) {
 	ConfigurarMotores();
-    configurarSolenoide();
+  configurarSolenoide();
 	configurarPinSensoresSup();
 	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
 	configurarPulsador();
+  energizarSolenoide();
+
 	estado = DETENIDO;
+	contPulsosEmSup = 0;
+	sensoresInf = 0xFF;
+	estadoInf = OK;
+  cantVeces = 0;
 	sei();
 }
+
 void configurarPulsador(void){
 	PulsadorInit();
 	// Configuro el pin change
@@ -202,11 +203,6 @@ void accionTracking(void){
 	EncenderMotores();
 }
 
-void activarSolenoide(void){
-    SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
-    _delay_ms(1000);
-    ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
-}
 
 void accionFightAdelante(void){
 	MoverAdelante();
@@ -290,20 +286,21 @@ ISR(PCINT1_vect) {
 	// Delay para debounce
 	// Dado que no tenemos necesidad de hacer nada mientras esperamos por el
 	// debounce lo dejamos asi. Sino, deberiamos utilizar algun timer
-	_delay_ms(10);
+	_delay_ms(50);
 
 	if (IsPulsadorSet()==true) { 
 		// significa que esta en 1 y hubo flanco ascendente genuino
 		// se podria reemplazar la variable por poner apagar todo, poner 
 		// el micro a dormir esperando solo esta interrupcion y luego
 		// despertalo. Aca se lo despertaria
-		if (estado == DETENIDO) {
-			estado = TRACKING;
-		}
-		else {
-			estado = DETENIDO;
-		}
+    EncenderMotores();
 	}
+
+  // Este flag se clerea a mano porque el clear por hardware se realiza en el
+  // momento que se atiende la interrupcion y no cuando se sale de ella.
+  // Esto hace que mientras se esta dentro de la interrupcion, puedan generarse
+  // nuevos flancos (ruido) que no queremos atender
+  SetBit(EIFR, INTF0);
 }
 
 
