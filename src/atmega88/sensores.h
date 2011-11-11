@@ -98,7 +98,7 @@
 #define PRESCALER_EMISORES_SUP		1
 #define OCR_EMISORES_SUP			97
 #define CANT_PULSOS_ALTO_EM_SUP		50
-#define CANT_PULSOS_BAJO_EM_SUP		255
+//#define CANT_PULSOS_BAJO_EM_SUP		255
 #define  A1ON   0
 #define  A2ON   1
 #define  B1ON   2

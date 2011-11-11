@@ -22,7 +22,7 @@ extern unsigned char velMD;
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
-volatile uint16_t contPulsosEmSup;
+volatile uint8_t contPulsosEmSup;
 void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
@@ -311,12 +311,6 @@ ISR(TIMER2_COMPA_vect){
 	if(contPulsosEmSup <= CANT_PULSOS_ALTO_EM_SUP){
 		SetBit(PIN_EAD, EAD_NUMBER);
 		SetBit(PIN_EAT, EAT_NUMBER);
-	}else if((contPulsosEmSup >= CANT_PULSOS_ALTO_EM_SUP)&&(contPulsosEmSup <=
-	CANT_PULSOS_ALTO_EM_SUP+CANT_PULSOS_BAJO_EM_SUP )){
-		SetBit(PORT_EAD, EAD_NUMBER);
-		SetBit(PORT_EAT, EAT_NUMBER);
-	}else{
-		contPulsosEmSup = 0;
 	}
 }
 
