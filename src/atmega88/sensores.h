@@ -142,6 +142,8 @@ void emisor_inf_off(void);
 int sensor_prendido(int num);
 
 
+#define encenderEmisorInferior()   SetBit(PORT_EP, EP_NUMBER);
+#define apagarEmisorInferior()     ClearBit(PORT_EP, EP_NUMBER);
 #define SALIENDO_LINEA    170
 
 extern volatile unsigned char analogSD;

@@ -32,7 +32,7 @@
 
 typedef enum {
 	FIGHT_ADELANTE,
-    FIGHT_ATRAS,
+  FIGHT_ATRAS,
 	TRACKING,
 	DETENIDO
 } estados;

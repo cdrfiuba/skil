@@ -24,6 +24,14 @@ void configurarTimerSensoresSup () {
 	TCCR2A = (0<<COM2A1)|(0<<COM2A0)|(0<<COM2B1)|(0<<COM2B0)|(1<<WGM21)|(0<<WGM20);
 	TCCR2B = (0<<WGM22);
 	
+	TCNT2 = 0;
+	OCR2A = OCR_EMISORES_SUP;
+
+	// CTC esta con OCR2A
+	TIMSK2 = (0<<OCIE2B)|(1<<OCIE2A)|(0<<TOIE2);
+}
+
+void encenderEmisorSuperior(){
 	#if PRESCALER_EMISORES_SUP == 1
 		ClearBit(TCCR2B, CS22);
 		ClearBit(TCCR2B, CS21);
@@ -56,19 +64,15 @@ void configurarTimerSensoresSup () {
 		ClearBit(TCCR2B, CS22);
 		ClearBit(TCCR2B, CS21);
 		ClearBit(TCCR2B, CS20);
-	#endif	
-
-	TCNT2 = 0;
-	OCR2A = OCR_EMISORES_SUP;
-
-	// CTC esta con OCR2A
-	TIMSK2 = (0<<OCIE2B)|(1<<OCIE2A)|(0<<TOIE2);
+	#endif
 }
+
+
+
 
 void configurarPinSensoresInf(){
 	// Configuro los leds de los sensores en salida
 	SetBit(DDR_EP, EP_NUMBER);
-	SetBit(PORT_EP, EP_NUMBER);
 
 	// Configuro todos los sensores en entrada sin pull-up
 	ClearBit(DDR_RPA, RPA_NUMBER);

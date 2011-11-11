@@ -34,6 +34,8 @@ int main (void) {
   _delay_ms(1); //tiempo de espera para bajar pollera
   desenergizarSolenoide();
   estado = TRACKING;
+  encenderEmisorSuperior();
+  encenderEmisorInferior();
 
 	while(1){
     setearSensoresInf();
@@ -41,53 +43,53 @@ int main (void) {
         //Para probar los sensores superiores ignoro el estado de los senosres inferiores
         //estadoInf = OK;
 
-      switch (estadoInf){
-			  case OK:
-				  switch(estado){
-					  case FIGHT_ADELANTE:
-					    accionFightAdelante();
-              _delay_ms(500);
-              estado = TRACKING;
-						  break;
-            case FIGHT_ATRAS:
-		          accionFightAtras();
-              _delay_ms(500);
-              estado = TRACKING;
-						  break;
-					  case TRACKING:
-						  //accionTracking();
-              GirarIzquierda();
+    switch (estadoInf){
+      case OK:
+        switch(estado){
+          case FIGHT_ADELANTE:
+            accionFightAdelante();
+            estado = TRACKING;
+            _delay_ms(10);
+            break;
+          case FIGHT_ATRAS:
+            accionFightAtras();
+            estado = TRACKING;
+            _delay_ms(10);
+            break;
+          case TRACKING:
+            //accionTracking();
+            GirarIzquierda();
 //              EncenderMotores();
-              break;
-				    case DETENIDO:
-				    default: 
-						  ApagarMotores();
-						  break;
-				  }
-				  break;
-			  case ADELANTE_DER:
-			    accionAdelanteDer();
-				  break;
-			  case ADELANTE_IZQ:
-				  accionAdelanteIzq();
-				  break;
-			  case ATRAS_DER:
-				  accionAtrasDer();
-				  break;
-			  case ATRAS_IZQ:
-				  accionAtrasIzq();
-				  break;
-			  case ATRAS:
-				  accionAtrasInf();
-				  break;
-			  case ADELANTE:
-				  accionAdelanteInf();
-				  break;
-			  default:
-				  ApagarMotores();
-				  break;
-		    }
+            break;
+          case DETENIDO:
+          default: 
+            ApagarMotores();
+            break;
+        }
+        break;
+      case ADELANTE_DER:
+        accionAdelanteDer();
+        break;
+      case ADELANTE_IZQ:
+        accionAdelanteIzq();
+        break;
+      case ATRAS_DER:
+        accionAtrasDer();
+        break;
+      case ATRAS_IZQ:
+        accionAtrasIzq();
+        break;
+      case ATRAS:
+        accionAtrasInf();
+        break;
+      case ADELANTE:
+        accionAdelanteInf();
+        break;
+      default:
+        ApagarMotores();
+        break;
     }
+  }
 }
 
 void setup (void) {
@@ -115,13 +117,13 @@ void configurarPulsador(void){
 }
 
 void configurarSolenoide(void){
-    SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
+  SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
 }
 
 void setearSensoresInf(void){
 
-    //Esto es para que el robot no arranque solo si lo forzamos a detenerse
-    if(estado == DETENIDO) return;
+//    //Esto es para que el robot no arranque solo si lo forzamos a detenerse
+//    if(estado == DETENIDO) return;
 
     switch(sensoresInf){
 		case MASK_INT_SENSA: 
@@ -206,23 +208,22 @@ void accionTracking(void){
 
 void accionFightAdelante(void){
 	MoverAdelante();
-	EncenderMotores();
 }
 
 void accionFightAtras(void){
 	MoverAtras();	
-   	EncenderMotores();
 }
 
 /*Accion de las funciones que actuan segun que sensor inferior sale del tatami*/
 void accionAdelanteDer(void){
-	//MoverAtras();
+	MoverAtras();
 
     //Me muevo para atras, pero mas rapido con el derecho porque es con el que me fui
-    velMI = 0x40;
+/*    velMI = 0x40;
     velMD = 0x30;
 	EncenderMotores();
-//    _delay_ms(100);
+*/
+    _delay_ms(100);
 }
 void accionAdelanteIzq(void){
 	MoverAtras();
@@ -230,8 +231,8 @@ void accionAdelanteIzq(void){
     //Me muevo para atras, pero mas rapido con el izquierdo porque es con el que me fui
 //    velMI = 0x30;
 //    velMD = 0x40;
-	EncenderMotores();
-//    _delay_ms(100);
+    
+    _delay_ms(100);
 }
 void accionAtrasDer(void){
 	MoverAdelante();
@@ -239,8 +240,8 @@ void accionAtrasDer(void){
     //Me muevo para adelante, pero mas rapido con el derecho porque es con el que me fui
 //    velMI = 0xC0;
 //    velMD = 0xD0;
-	EncenderMotores();
-//    _delay_ms(100);
+
+    _delay_ms(100);
 }
 void accionAtrasIzq(void){
     MoverAdelante();
@@ -248,18 +249,18 @@ void accionAtrasIzq(void){
     //Me muevo para adelante, pero mas rapido con el izquierdo porque es con el que me fui
  //   velMI = 0xD0;
  //   velMD = 0xC0;
-	EncenderMotores();
-//    _delay_ms(100);
+
+    _delay_ms(100);
 }
 void accionAtrasInf(void){
 	MoverAdelante();
-	EncenderMotores();
-//    _delay_ms(100);
+  //
+    _delay_ms(100);
 }
 void accionAdelanteInf(void){
 	MoverAtras();
-	EncenderMotores();
-//    _delay_ms(100);
+
+    _delay_ms(100);
 }
 
 ISR(PCINT2_vect) {
@@ -315,16 +316,10 @@ ISR(TIMER2_COMPA_vect){
 }
 
 ISR(INT0_vect){
-
-    if(estado == DETENIDO) return;
-    
     estado = FIGHT_ADELANTE;
 }
 
 ISR(INT1_vect){  
-    
-    if(estado == DETENIDO) return;
-    
     estado = FIGHT_ATRAS;
 }
 
