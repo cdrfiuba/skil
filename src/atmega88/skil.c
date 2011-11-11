@@ -11,16 +11,13 @@ volatile estadosInf estadoInf;
 volatile estadosTracking estadoInterno;
 volatile uint8_t sensoresInf;
 volatile uint8_t cantVeces;
-volatile uint8_t auxContador;
-volatile uint8_t flagInf = 0;
 
-#define energizarSolenoide()     SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
-#define desenergizarSolenoide()  ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER);
+
+#define energizarSolenoide()     SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER)
+#define desenergizarSolenoide()  ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER)
+#define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
 
 #define DELAY_ESTADO    5  //  en milisegundos
-
-extern unsigned char velMI;
-extern unsigned char velMD;
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
@@ -105,7 +102,7 @@ void setup (void) {
 
 	estado = DETENIDO;
 	estadoInterno = ADELANTANDO;
-  cantVeces = 0;
+    cantVeces = 0;
 	contPulsosEmSup = 0;
 	sensoresInf = 0xFF;
 	estadoInf = OK;
@@ -168,7 +165,7 @@ void accionTracking(void){
 			GirarDerecha();
 			cantVeces++;
 		} else {
-			estadoInterno = ADELANTANDO;
+			estadoInterno = proximoEstadoAleatorio(); //ADELANTANDO;
 			cantVeces = 0;
 		}
 		break;
@@ -177,7 +174,7 @@ void accionTracking(void){
 			GirarIzquierda();
 			cantVeces++;
 		} else {
-			estadoInterno = ATRAZANDO;
+			estadoInterno = proximoEstadoAleatorio(); //ATRAZANDO;
 			cantVeces = 0;
 		}
 		break;
@@ -186,7 +183,7 @@ void accionTracking(void){
 			MoverAdelante();
 			cantVeces++;
 		} else {
-			estadoInterno = GIRANDO_IZQUIERDA;
+			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_IZQUIERDA;
 			cantVeces = 0;
 		}
 		break;
@@ -195,7 +192,7 @@ void accionTracking(void){
 			MoverAtras();
 			cantVeces++;
 		} else {
-			estadoInterno = GIRANDO_DERECHA;
+			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_DERECHA;
 			cantVeces = 0;
 		}
 		break;

@@ -70,6 +70,9 @@
 #define VEL_ADELANTE   0xC0
 #define VEL_ATRAS      0x40
 
+extern volatile unsigned char velMI;
+extern volatile unsigned char velMD;
+
 void ConfigurarMotores(void);
 void ApagarMotores(void);
 void EncenderMotores(void);
