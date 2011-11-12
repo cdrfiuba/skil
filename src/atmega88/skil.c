@@ -26,23 +26,21 @@ volatile uint8_t contPulsosEmSup;
 void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
-void actuar(void);
+//void actuar(void);
 
 int main (void) {
 	setup();
-  while (estado==DETENIDO);
+
+  while (estado == DETENIDO);
+  
   _delay_ms(1); //tiempo de espera para bajar pollera
   desenergizarSolenoide();
-  estado = TRACKING;
   encenderEmisorSuperior();
   encenderEmisorInferior();
 
 	while(1){
-    setearSensoresInf();
 
-        //Para probar los sensores superiores ignoro el estado de los senosres inferiores
-        //estadoInf = OK;
-
+   
     switch (estadoInf){
       case OK:
         switch(estado){
@@ -57,26 +55,14 @@ int main (void) {
             _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
-            //accionTracking();
-            GirarIzquierda();
+            accionTracking();
+            //GirarIzquierda();            
             break;
           case DETENIDO:
           default: 
             ApagarMotores();
             break;
         }
-        break;
-      case ADELANTE_DER:
-        accionAdelanteDer();
-        break;
-      case ADELANTE_IZQ:
-        accionAdelanteIzq();
-        break;
-      case ATRAS_DER:
-        accionAtrasDer();
-        break;
-      case ATRAS_IZQ:
-        accionAtrasIzq();
         break;
       case ATRAS:
         accionAtrasInf();
@@ -93,12 +79,12 @@ int main (void) {
 
 void setup (void) {
 	ConfigurarMotores();
-  configurarSolenoide();
+    configurarSolenoide();
 	configurarPinSensoresSup();
 	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
 	configurarPulsador();
-  energizarSolenoide();
+    energizarSolenoide();
 
 	estado = DETENIDO;
 	estadoInterno = ADELANTANDO;
@@ -120,41 +106,15 @@ void configurarSolenoide(void){
   SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
 }
 
-void setearSensoresInf(void){
-  switch(sensoresInf){
-		case MASK_INT_SENSA: 
-			estadoInf = ADELANTE_IZQ;
-			break;
-		case MASK_INT_SENSB: 
-			estadoInf = ADELANTE_DER;
-			break;
-		case MASK_INT_SENSD: 
-			estadoInf = ATRAS_DER;
-			break;
-		case MASK_INT_SENSC_2: 
-			estadoInf = ATRAS_IZQ;
-			break;
-		case (MASK_INT_SENSA & MASK_INT_SENSB): 
-			estadoInf = ADELANTE;
-			break;
-		case (MASK_INT_SENSC & MASK_INT_SENSD): 
-			estadoInf = ATRAS;
-			break;
-		default:
-			estadoInf = OK;
-			break;
-	}
-}
-
 void movimientoPrueba(void){
 	MoverAdelante();
-	_delay_ms(1000);
+	_delay_ms(500);
 	MoverAtras();
-	_delay_ms(1000);
+	_delay_ms(500);
 	GirarIzquierda();
-	_delay_ms(1000);
+	_delay_ms(500);
 	GirarDerecha();
-	_delay_ms(1000);
+	_delay_ms(500);
 }
 
 void accionTracking(void){
@@ -166,6 +126,7 @@ void accionTracking(void){
 			cantVeces++;
 		} else {
 			estadoInterno = proximoEstadoAleatorio(); //ADELANTANDO;
+	        _delay_ms(400);
 			cantVeces = 0;
 		}
 		break;
@@ -175,7 +136,8 @@ void accionTracking(void){
 			cantVeces++;
 		} else {
 			estadoInterno = proximoEstadoAleatorio(); //ATRAZANDO;
-			cantVeces = 0;
+	        _delay_ms(400);	
+        	cantVeces = 0;
 		}
 		break;
 	case ADELANTANDO:
@@ -184,6 +146,7 @@ void accionTracking(void){
 			cantVeces++;
 		} else {
 			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_IZQUIERDA;
+	        _delay_ms(400);
 			cantVeces = 0;
 		}
 		break;
@@ -193,12 +156,12 @@ void accionTracking(void){
 			cantVeces++;
 		} else {
 			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_DERECHA;
+	        _delay_ms(400);
 			cantVeces = 0;
 		}
 		break;
 	}
 }
-
 
 void accionFightAdelante(void){
 	MoverAdelante();
@@ -209,71 +172,40 @@ void accionFightAtras(void){
 }
 
 /*Accion de las funciones que actuan segun que sensor inferior sale del tatami*/
-void accionAdelanteDer(void){
-	MoverAtras();
-
-    //Me muevo para atras, pero mas rapido con el derecho porque es con el que me fui
-/*    velMI = 0x40;
-    velMD = 0x30;
-	EncenderMotores();
-*/
-    _delay_ms(100);
-}
-void accionAdelanteIzq(void){
-	MoverAtras();
-
-    //Me muevo para atras, pero mas rapido con el izquierdo porque es con el que me fui
-//    velMI = 0x30;
-//    velMD = 0x40;
-    
-    _delay_ms(100);
-}
-void accionAtrasDer(void){
-	MoverAdelante();
-
-    //Me muevo para adelante, pero mas rapido con el derecho porque es con el que me fui
-//    velMI = 0xC0;
-//    velMD = 0xD0;
-
-    _delay_ms(100);
-}
-void accionAtrasIzq(void){
-    MoverAdelante();
-
-    //Me muevo para adelante, pero mas rapido con el izquierdo porque es con el que me fui
- //   velMI = 0xD0;
- //   velMD = 0xC0;
-
-    _delay_ms(100);
-}
 void accionAtrasInf(void){
 	MoverAdelante();
-  //
-    _delay_ms(100);
+
+    estadoInf = OK;
+    _delay_ms(200);
+
+    PCIFR |= (1<<PCIF0);
+    PCICR |= (1<<PCIE0);
 }
+
 void accionAdelanteInf(void){
 	MoverAtras();
 
-    _delay_ms(100);
+    estadoInf = OK;
+    _delay_ms(200);
+
+    PCIFR |= (1<<PCIF0); // | (1<<PCIF0);    
+    PCICR |= (1<<PCIE0); // | (1<<PCIE0);
 }
 
-ISR(PCINT2_vect) {
-	uint8_t aux = (PIN_RPC | MASK_INT_SENSC);
-	if(aux == 0xFF){
-		sensoresInf |= ((1<<RPC_NUMBER)>>2);
-	} else {
-		sensoresInf &= ~((1<<RPC_NUMBER)>>2);
-	}
-}
 
 ISR(PCINT0_vect) {
-	// Uso directamente el PINB por que estan todos ahi.
-	uint8_t aux = (PINB | MASK_INT_PORT);
-	if(aux == 0xFF){
-		sensoresInf |= ((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPD_NUMBER));
+	
+	if((PINB & 0xC0) != 0xC0){
+		estadoInf = ADELANTE;
+	} 
+    else if((PINB & 0x01) != 0x01){
+    	estadoInf = ATRAS;
 	} else {
-		sensoresInf &= aux;
-	}
+        estadoInf = OK;
+    }
+
+ //   PCICR &= ~(1<<PCIE0); 
+    PCIFR |= (1<<PCIF0);
 
 }
 
@@ -283,19 +215,20 @@ ISR(PCINT1_vect) {
 	// debounce lo dejamos asi. Sino, deberiamos utilizar algun timer
 	_delay_ms(50);
 
-	if (IsPulsadorSet()==true) { 
+	if (IsPulsadorSet() == true) { 
 		// significa que esta en 1 y hubo flanco ascendente genuino
 		// se podria reemplazar la variable por poner apagar todo, poner 
 		// el micro a dormir esperando solo esta interrupcion y luego
 		// despertalo. Aca se lo despertaria
-    EncenderMotores();
+        EncenderMotores();
+        estado = TRACKING;
 	}
 
   // Este flag se clerea a mano porque el clear por hardware se realiza en el
   // momento que se atiende la interrupcion y no cuando se sale de ella.
   // Esto hace que mientras se esta dentro de la interrupcion, puedan generarse
   // nuevos flancos (ruido) que no queremos atender
-  SetBit(EIFR, INTF0);
+     SetBit(EIFR, INTF0);
 }
 
 

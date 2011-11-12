@@ -21,7 +21,7 @@
 #define RPB_NUMBER    6
 
 /*RPC = Receptor Piso C*/
-#define PORT_RPC_NAME D
+#define PORT_RPC_NAME D // No se usa este sensor
 #define RPC_NUMBER    7
 
 /*RPD = Receptor Piso D*/

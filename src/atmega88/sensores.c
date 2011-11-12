@@ -71,19 +71,19 @@ void encenderEmisorSuperior(){
 void configurarPinSensoresInf(){
 	// Configuro los leds de los sensores en salida
 	SetBit(DDR_EP, EP_NUMBER);
-  apagarEmisorInferior();
+    apagarEmisorInferior();
 
 	// Configuro todos los sensores en entrada sin pull-up
 	ClearBit(DDR_RPA, RPA_NUMBER);
 	SetBit(PORT_RPA, RPA_NUMBER);
 	ClearBit(DDR_RPB, RPB_NUMBER);
 	SetBit(PORT_RPB, RPB_NUMBER);
-	ClearBit(DDR_RPC, RPC_NUMBER);
-	SetBit(PORT_RPC, RPC_NUMBER);
+//	ClearBit(DDR_RPC, RPC_NUMBER);
+//	SetBit(PORT_RPC, RPC_NUMBER);
 	ClearBit(DDR_RPD, RPD_NUMBER);
 	SetBit(PORT_RPD, RPD_NUMBER);
 
-	PCICR |= (1<<PCIE2)|(1<<PCIE0);
-	PCMSK2 = (1<<PCINT23);
+	PCICR |= (1<<PCIE0);
+	//PCMSK2 = (1<<PCINT23);
 	PCMSK0 = (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT0);
 }
