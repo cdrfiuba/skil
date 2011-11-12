@@ -67,9 +67,8 @@
 /* ------------------------------------------------------ */
 
 #define VEL_DETENIDO          0x80
-#define VEL_ADELANTE          0xC8
-#define VEL_ADELANTE_RAPIDO   0xD1
-#define VEL_ATRAS      0x40
+#define VEL_ADELANTE          0xD0
+#define VEL_ATRAS             0x40
 
 extern volatile unsigned char velMI;
 extern volatile unsigned char velMD;

@@ -30,6 +30,7 @@ static inline void dec_vel_mi(void){
   if (velMI < VEL_MAX_ADELANTE) velMI++;
 }
 */
+
 void ConfigurarMotores(void) {
   SetBit(DDR_NSLEEP,NSLEEP_NUMBER);
   ClearBit(DDR_NFAULT,NFAULT_NUMBER);
@@ -86,6 +87,13 @@ void MoverAdelante(){
   velMD = VEL_ADELANTE;
   actualizar_velocidad();
 }
+
+void MoverFight(){
+  velMI = VEL_ADELANTE_RAPIDO;
+  velMD = VEL_ADELANTE_RAPIDO;
+  actualizar_velocidad();
+}
+
 
 void MoverAtras(){
   velMI = VEL_ATRAS;

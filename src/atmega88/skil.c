@@ -48,9 +48,13 @@ int main (void) {
             estado = TRACKING;
             _delay_ms(DELAY_ESTADO);
             break;
+            case FIGHT_ATRAS:
+              accionFightAtras();
+              estado = TRACKING;
+             _delay_ms(DELAY_ESTADO);
+              break;
           case TRACKING:
-            //accionTracking();
-            GirarIzquierda();
+             GirarIzquierda();
             _delay_ms(350);
             MoverAdelante();
             _delay_ms(200);            
@@ -103,6 +107,17 @@ void configurarSolenoide(void){
   SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
 }
 
+void movimientoPrueba(void){
+	MoverAdelante();
+	_delay_ms(500);
+	MoverAtras();
+	_delay_ms(500);
+	GirarIzquierda();
+	_delay_ms(500);
+	GirarDerecha();
+	_delay_ms(500);
+}
+
 
 void accionFightAdelante(void){
 	MoverAdelante();
@@ -117,7 +132,7 @@ void accionAtrasInf(void){
 	MoverAdelante();
 
     estadoInf = OK;
-    _delay_ms(400);
+    _delay_ms(200);
 
     PCIFR |= (1<<PCIF0);
     PCICR |= (1<<PCIE0);
@@ -127,7 +142,7 @@ void accionAdelanteInf(void){
 	MoverAtras();
 
     estadoInf = OK;
-    _delay_ms(400);
+    _delay_ms(200);
 
     PCIFR |= (1<<PCIF0); // | (1<<PCIF0);    
     PCICR |= (1<<PCIE0); // | (1<<PCIE0);
@@ -145,7 +160,7 @@ ISR(PCINT0_vect) {
         estadoInf = OK;
     }
 
-//  PCICR &= ~(1<<PCIE0); 
+ //   PCICR &= ~(1<<PCIE0); 
     PCIFR |= (1<<PCIF0);
 
 }
@@ -186,6 +201,10 @@ ISR(TIMER2_COMPA_vect){
 ISR(INT0_vect){
     estado = FIGHT_ADELANTE;
 }
+
+//ISR(INT1_vect){  
+    //estado = FIGHT_ATRAS;
+//}
 
 
 
