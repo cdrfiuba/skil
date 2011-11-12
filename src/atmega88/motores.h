@@ -66,8 +66,9 @@
 
 /* ------------------------------------------------------ */
 
-#define VEL_DETENIDO   0x80
-#define VEL_ADELANTE   0xC0
+#define VEL_DETENIDO          0x80
+#define VEL_ADELANTE          0xC8
+#define VEL_ADELANTE_RAPIDO   0xD1
 #define VEL_ATRAS      0x40
 
 extern volatile unsigned char velMI;
@@ -78,6 +79,7 @@ void ApagarMotores(void);
 void EncenderMotores(void);
 void Detener(void);
 void MoverAdelante(void);
+void MoverFight(void);
 void MoverAtras(void);
 void GirarIzquierda(void);
 void GirarDerecha(void);  

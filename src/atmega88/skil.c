@@ -31,16 +31,15 @@ unsigned char actualizar_estado(void);
 int main (void) {
 	setup();
 
-  while (estado == DETENIDO);
+    while (estado == DETENIDO);
   
-  _delay_ms(1); //tiempo de espera para bajar pollera
-  desenergizarSolenoide();
-  encenderEmisorSuperior();
-  encenderEmisorInferior();
+    _delay_ms(1); //tiempo de espera para bajar pollera
+    desenergizarSolenoide();
+    encenderEmisorSuperior();
+    encenderEmisorInferior();
 
 	while(1){
 
-   
     switch (estadoInf){
       case OK:
         switch(estado){
@@ -49,14 +48,12 @@ int main (void) {
             estado = TRACKING;
             _delay_ms(DELAY_ESTADO);
             break;
-          case FIGHT_ATRAS:
-            accionFightAtras();
-            estado = TRACKING;
-            _delay_ms(DELAY_ESTADO);
-            break;
           case TRACKING:
-            accionTracking();
-            //GirarIzquierda();            
+            //accionTracking();
+            GirarIzquierda();
+            _delay_ms(350);
+            MoverAdelante();
+            _delay_ms(200);            
             break;
           case DETENIDO:
           default: 
@@ -106,62 +103,6 @@ void configurarSolenoide(void){
   SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER);
 }
 
-void movimientoPrueba(void){
-	MoverAdelante();
-	_delay_ms(500);
-	MoverAtras();
-	_delay_ms(500);
-	GirarIzquierda();
-	_delay_ms(500);
-	GirarDerecha();
-	_delay_ms(500);
-}
-
-void accionTracking(void){
-	// Tiene que buscar al oponente. Podemos girar en el lugar 180 y movernos un poco hasta que lo encontramos.
-	switch (estadoInterno){
-	case GIRANDO_DERECHA:
-		if (cantVeces <= CANT_REPETICIONES){
-			GirarDerecha();
-			cantVeces++;
-		} else {
-			estadoInterno = proximoEstadoAleatorio(); //ADELANTANDO;
-	        _delay_ms(400);
-			cantVeces = 0;
-		}
-		break;
-	case GIRANDO_IZQUIERDA:
-		if (cantVeces <= CANT_REPETICIONES){
-			GirarIzquierda();
-			cantVeces++;
-		} else {
-			estadoInterno = proximoEstadoAleatorio(); //ATRAZANDO;
-	        _delay_ms(400);	
-        	cantVeces = 0;
-		}
-		break;
-	case ADELANTANDO:
-		if (cantVeces <= CANT_REPETICIONES){
-			MoverAdelante();
-			cantVeces++;
-		} else {
-			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_IZQUIERDA;
-	        _delay_ms(400);
-			cantVeces = 0;
-		}
-		break;
-	case ATRAZANDO:
-		if (cantVeces <= CANT_REPETICIONES){
-			MoverAtras();
-			cantVeces++;
-		} else {
-			estadoInterno = proximoEstadoAleatorio(); //GIRANDO_DERECHA;
-	        _delay_ms(400);
-			cantVeces = 0;
-		}
-		break;
-	}
-}
 
 void accionFightAdelante(void){
 	MoverAdelante();
@@ -176,7 +117,7 @@ void accionAtrasInf(void){
 	MoverAdelante();
 
     estadoInf = OK;
-    _delay_ms(200);
+    _delay_ms(400);
 
     PCIFR |= (1<<PCIF0);
     PCICR |= (1<<PCIE0);
@@ -186,7 +127,7 @@ void accionAdelanteInf(void){
 	MoverAtras();
 
     estadoInf = OK;
-    _delay_ms(200);
+    _delay_ms(400);
 
     PCIFR |= (1<<PCIF0); // | (1<<PCIF0);    
     PCICR |= (1<<PCIE0); // | (1<<PCIE0);
@@ -204,7 +145,7 @@ ISR(PCINT0_vect) {
         estadoInf = OK;
     }
 
- //   PCICR &= ~(1<<PCIE0); 
+//  PCICR &= ~(1<<PCIE0); 
     PCIFR |= (1<<PCIF0);
 
 }
@@ -244,10 +185,6 @@ ISR(TIMER2_COMPA_vect){
 
 ISR(INT0_vect){
     estado = FIGHT_ADELANTE;
-}
-
-ISR(INT1_vect){  
-    estado = FIGHT_ATRAS;
 }
 
 

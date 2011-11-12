@@ -13,8 +13,8 @@ void configurarPinSensoresSup () {
 	SetBit(PORT_RAT, RAT_NUMBER);
 
 
-    EICRA = (1<<ISC11) | (0<<ISC10) | (1<<ISC01) | (0<<ISC00);
-    EIMSK = (1<<INT1) | (1<<INT0);
+    EICRA = (1<<ISC01) | (0<<ISC00); // | (1<<ISC11) | (0<<ISC10);
+    EIMSK = (1<<INT0); // | (1<<INT1);
 
 }
 

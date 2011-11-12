@@ -146,11 +146,11 @@ void encenderEmisorSuperior();
 #define apagarEmisorInferior()     ClearBit(PORT_EP, EP_NUMBER);
 #define SALIENDO_LINEA    170
 
-extern volatile unsigned char analogSD;
-extern volatile unsigned char analogSI;
+//extern volatile unsigned char analogSD;
+//extern volatile unsigned char analogSI;
 
-void configurar_adc();
-void leer_sensores_adc();
+//void configurar_adc();
+//void leer_sensores_adc();
 
 void configurarPinSensoresSup (void);
 void configurarTimerSensoresSup (void);
