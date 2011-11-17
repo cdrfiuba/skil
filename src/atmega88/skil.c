@@ -18,22 +18,26 @@ volatile uint8_t cantVeces;
 #define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
 
 #define DELAY_ESTADO    5  //  en milisegundos
+#define DELAY_INICIO    5500 //en milisegundos
 
 // Variable de estado de los emisores superiores
 // Varia entre 0 y CANT_PULSOS_ALTO_EM_SUP + CANT_PULSOS_BAJO_EM_SUP
 volatile uint8_t contPulsosEmSup;
+volatile uint8_t flagVisto;
 
 void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
-//void actuar(void);
+
 
 int main (void) {
 	setup();
 
+    flagVisto = 0;
+
     while (estado == DETENIDO);
   
-    _delay_ms(1); //tiempo de espera para bajar pollera
+    _delay_ms(DELAY_INICIO); //tiempo de espera para bajar pollera
     desenergizarSolenoide();
     encenderEmisorSuperior();
     encenderEmisorInferior();
@@ -54,6 +58,7 @@ int main (void) {
              _delay_ms(DELAY_ESTADO);
               break;
           case TRACKING:
+             //ESTO EN LA ULTIMA VERSION FUE CAMBIADO
              GirarIzquierda();
             _delay_ms(350);
             MoverAdelante();
@@ -160,7 +165,7 @@ ISR(PCINT0_vect) {
         estadoInf = OK;
     }
 
- //   PCICR &= ~(1<<PCIE0); 
+
     PCIFR |= (1<<PCIF0);
 
 }
@@ -201,10 +206,6 @@ ISR(TIMER2_COMPA_vect){
 ISR(INT0_vect){
     estado = FIGHT_ADELANTE;
 }
-
-//ISR(INT1_vect){  
-    //estado = FIGHT_ATRAS;
-//}
 
 
 
