@@ -7,7 +7,7 @@ void configurarPinSensoresSup () {
 	SetBit(DDR_EAT, EAT_NUMBER);
 	ClearBit(PORT_EAT, EAT_NUMBER);
 
-    ClearBit(DDR_RAD, RAD_NUMBER);
+  ClearBit(DDR_RAD, RAD_NUMBER);
 	SetBit(PORT_RAD, RAD_NUMBER);
 	ClearBit(DDR_RAT, RAT_NUMBER);
 	SetBit(PORT_RAT, RAT_NUMBER);

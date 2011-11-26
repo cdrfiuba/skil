@@ -19,6 +19,23 @@
 #define DDR_SOLENOIDE   def_ddr_reg(PORT_SOLENOIDE_NAME)
 
 
+
+/*LED1 = LED 1 (Verde)*/
+#define PORT_LED1_NAME	C
+#define LED1_NUMBER	    5
+
+#define PORT_LED1     def_port_reg(PORT_LED1_NAME)
+#define PIN_LED1      def_pin_reg(PORT_LED1_NAME)
+#define DDR_LED1      def_ddr_reg(PORT_LED1_NAME)
+
+#define Led1Init()  SetBit(DDR_LED1, LED1_NUMBER)
+
+#define Led1On()    SetBit(PORT_LED1, LED1_NUMBER)
+#define Led1Off()   ClearBit(PORT_LED1, LED1_NUMBER)
+
+#define IsLed1On()    IsBitSet(PORT_LED1, LED1_NUMBER)
+#define Led1Toggle()  {if ( IsLed1On() ) Led1Off(); else Led1On();}
+
 /* Macros */
 // Se setea como entrada y se pone el pin en '1'. Esto último hace que se 
 // active el pull-up interno

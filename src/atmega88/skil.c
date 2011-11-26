@@ -29,20 +29,23 @@ void configurarPulsador(void);
 void setup(void);
 unsigned char actualizar_estado(void);
 
-
 int main (void) {
 	setup();
+  Led1Off();
 
-    flagVisto = 0;
+  flagVisto = 0;
 
-    while (estado == DETENIDO);
+  while (estado == DETENIDO);
   
-    _delay_ms(DELAY_INICIO); //tiempo de espera para bajar pollera
-    desenergizarSolenoide();
-    encenderEmisorSuperior();
-    encenderEmisorInferior();
+  _delay_ms(DELAY_INICIO); //tiempo de espera para bajar pollera
+  desenergizarSolenoide();
+  encenderEmisorSuperior();
+  encenderEmisorInferior();
 
+  Led1On();
 	while(1){
+//    if (IsFaultSet() == false) Led1Off();
+//    else Led1On();
 
     switch (estadoInf){
       case OK:
@@ -52,21 +55,19 @@ int main (void) {
             estado = TRACKING;
             _delay_ms(DELAY_ESTADO);
             break;
-            case FIGHT_ATRAS:
-              accionFightAtras();
-              estado = TRACKING;
-             _delay_ms(DELAY_ESTADO);
-              break;
+          case FIGHT_ATRAS:
+            accionFightAtras();
+            estado = TRACKING;
+            _delay_ms(DELAY_ESTADO);
+            break;
           case TRACKING:
-             //ESTO EN LA ULTIMA VERSION FUE CAMBIADO
-             GirarIzquierda();
-            _delay_ms(350);
-            MoverAdelante();
-            _delay_ms(200);            
+            GirarIzquierda();
+            while (flagVisto == 0);
+            flagVisto = 0; 
             break;
           case DETENIDO:
           default: 
-            ApagarMotores();
+//            ApagarMotores();
             break;
         }
         break;
@@ -77,7 +78,7 @@ int main (void) {
         accionAdelanteInf();
         break;
       default:
-        ApagarMotores();
+//        ApagarMotores();
         break;
     }
   }
@@ -85,16 +86,17 @@ int main (void) {
 
 void setup (void) {
 	ConfigurarMotores();
-    configurarSolenoide();
+  configurarSolenoide();
 	configurarPinSensoresSup();
 	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
 	configurarPulsador();
-    energizarSolenoide();
+  energizarSolenoide();
+  Led1Init();
 
 	estado = DETENIDO;
 	estadoInterno = ADELANTANDO;
-    cantVeces = 0;
+  cantVeces = 0;
 	contPulsosEmSup = 0;
 	sensoresInf = 0xFF;
 	estadoInf = OK;
@@ -155,19 +157,18 @@ void accionAdelanteInf(void){
 
 
 ISR(PCINT0_vect) {
-	
+  if (estado==DETENIDO) return;
 	if((PINB & 0xC0) != 0xC0){
 		estadoInf = ADELANTE;
 	} 
-    else if((PINB & 0x01) != 0x01){
-    	estadoInf = ATRAS;
-	} else {
-        estadoInf = OK;
-    }
+  else if((PINB & 0x01) != 0x01){
+    estadoInf = ATRAS;
+	} 
+  else {
+    estadoInf = OK;
+  }
 
-
-    PCIFR |= (1<<PCIF0);
-
+  PCIFR |= (1<<PCIF0);
 }
 
 ISR(PCINT1_vect) {
@@ -189,7 +190,7 @@ ISR(PCINT1_vect) {
   // momento que se atiende la interrupcion y no cuando se sale de ella.
   // Esto hace que mientras se esta dentro de la interrupcion, puedan generarse
   // nuevos flancos (ruido) que no queremos atender
-     SetBit(EIFR, INTF0);
+  SetBit(EIFR, INTF0);
 }
 
 
@@ -204,9 +205,6 @@ ISR(TIMER2_COMPA_vect){
 }
 
 ISR(INT0_vect){
-    estado = FIGHT_ADELANTE;
+  estado = FIGHT_ADELANTE;
+  flagVisto = 1;
 }
-
-
-
-
