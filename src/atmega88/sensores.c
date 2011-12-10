@@ -66,7 +66,7 @@ void encenderEmisorSuperior(){
 void configurarPinSensoresInf(){
 	// Configuro los leds de los sensores en salida
 	SetBit(DDR_EP, EP_NUMBER);
-    apagarEmisorInferior();
+  apagarEmisorInferior();
 
 	// Configuro todos los sensores en entrada sin pull-up
 	ClearBit(DDR_RPA, RPA_NUMBER);

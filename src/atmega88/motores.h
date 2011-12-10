@@ -10,6 +10,7 @@
 /* Motores (nFault)*/
 #define PORT_NFAULT_NAME  C
 #define NFAULT_NUMBER     0
+
 /* Motores (nSleep)*/
 #define PORT_NSLEEP_NAME  B
 #define NSLEEP_NUMBER     5
@@ -64,10 +65,13 @@
 #define TMR0MASKOFF ~( (1<<CS02) | (1<<CS01) | (1<<CS00) )
 #define TMR1MASKOFF ~( (1<<CS12) | (1<<CS11) | (1<<CS10) )
 
+
+#define IsFaultSet()   IsBitSet(PIN_NFAULT, NFAULT_NUMBER)
+
 /* ------------------------------------------------------ */
 
 #define VEL_DETENIDO          0x80
-#define VEL_ADELANTE          0xD0
+#define VEL_ADELANTE          0xD8
 #define VEL_ATRAS             0x40
 
 extern volatile unsigned char velMI;

@@ -21,7 +21,7 @@
 #define RPB_NUMBER    6
 
 /*RPC = Receptor Piso C*/
-#define PORT_RPC_NAME B 
+#define PORT_RPC_NAME B
 #define RPC_NUMBER    4
 
 /*RPD = Receptor Piso D*/
@@ -71,10 +71,9 @@
 // Defino las mascaras para la interrupcion
 #define MASK_INT_SENSA	(uint8_t)(~(1<<RPA_NUMBER)) // 0x7F
 #define MASK_INT_SENSB	(uint8_t)(~(1<<RPB_NUMBER)) // 0xBF
-#define MASK_INT_SENSC	(uint8_t)(~(1<<RPC_NUMBER)) // 0x7F
-#define MASK_INT_SENSC_2	(uint8_t)(~((1<<RPC_NUMBER)>>2))  // 0xDF
+#define MASK_INT_SENSC	(uint8_t)(~(1<<RPC_NUMBER)) // 0xEF
 #define MASK_INT_SENSD	(uint8_t)(~(1<<RPD_NUMBER)) // 0xFE
-#define MASK_INT_PORT (~ ((uint8_t)((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPD_NUMBER))) ) // 0x3E
+#define MASK_INT_PORT (~ ((uint8_t)((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPC_NUMBER)|(1<<RPD_NUMBER))) ) // 0x2E
 
 
 /* ----------------------------------------------------------------- */
