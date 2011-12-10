@@ -32,7 +32,7 @@
 #define MI_IN1_NUMBER     6
 /*MI_2 = Motor Left IN2*/
 #define PORT_MI_IN2_NAME	 D
-#define MI_IN2_NUMBER		   5
+#define MI_IN2_NUMBER		 5
 
 #define PORT_MI_IN1  def_port_reg(PORT_MI_IN1_NAME)
 #define PIN_MI_IN1   def_pin_reg(PORT_MI_IN1_NAME)

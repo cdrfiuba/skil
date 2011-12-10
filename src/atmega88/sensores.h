@@ -21,8 +21,8 @@
 #define RPB_NUMBER    6
 
 /*RPC = Receptor Piso C*/
-#define PORT_RPC_NAME D // No se usa este sensor
-#define RPC_NUMBER    7
+#define PORT_RPC_NAME B 
+#define RPC_NUMBER    4
 
 /*RPD = Receptor Piso D*/
 #define PORT_RPD_NAME B
@@ -54,33 +54,18 @@
 #define PORT_EAD_NAME D
 #define EAD_NUMBER    4
 
-/*EAT = Emisor Atras*/
-#define PORT_EAT_NAME B
-#define EAT_NUMBER    4
-
 /*RAD = Receptor Adelante*/
 #define PORT_RAD_NAME D
 #define RAD_NUMBER    2
 
-/*RAT = Receptor Atras*/
-#define PORT_RAT_NAME D
-#define RAT_NUMBER    3
 
 #define PORT_EAD  def_port_reg(PORT_EAD_NAME)
 #define PIN_EAD   def_pin_reg(PORT_EAD_NAME)
 #define DDR_EAD   def_ddr_reg(PORT_EAD_NAME)
 
-#define PORT_EAT  def_port_reg(PORT_EAT_NAME)
-#define PIN_EAT   def_pin_reg(PORT_EAT_NAME)
-#define DDR_EAT   def_ddr_reg(PORT_EAT_NAME)
-
 #define PORT_RAD  def_port_reg(PORT_RAD_NAME)
 #define PIN_RAD  def_pin_reg(PORT_RAD_NAME)
 #define DDR_RAD   def_ddr_reg(PORT_RAD_NAME)
-
-#define PORT_RAT  def_port_reg(PORT_RAT_NAME)
-#define PIN_RAT   def_pin_reg(PORT_RAT_NAME)
-#define DDR_RAT   def_ddr_reg(PORT_RAT_NAME)
 
 
 // Defino las mascaras para la interrupcion

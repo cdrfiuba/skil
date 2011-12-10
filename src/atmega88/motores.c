@@ -88,12 +88,6 @@ void MoverAdelante(){
   actualizar_velocidad();
 }
 
-void MoverFight(){
-  velMI = VEL_ADELANTE_RAPIDO;
-  velMD = VEL_ADELANTE_RAPIDO;
-  actualizar_velocidad();
-}
-
 
 void MoverAtras(){
   velMI = VEL_ATRAS;

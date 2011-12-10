@@ -159,7 +159,7 @@ ISR(PCINT0_vect) {
 	if((PINB & 0xC0) != 0xC0){
 		estadoInf = ADELANTE;
 	} 
-    else if((PINB & 0x01) != 0x01){
+    else if((PINB & 0x09) != 0x09){
     	estadoInf = ATRAS;
 	} else {
         estadoInf = OK;
@@ -199,7 +199,6 @@ ISR(TIMER2_COMPA_vect){
 	contPulsosEmSup++;
 	if(contPulsosEmSup <= CANT_PULSOS_ALTO_EM_SUP){
 		SetBit(PIN_EAD, EAD_NUMBER);
-		SetBit(PIN_EAT, EAT_NUMBER);
 	}
 }
 
