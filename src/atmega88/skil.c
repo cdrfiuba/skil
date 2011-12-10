@@ -168,6 +168,7 @@ ISR(PCINT0_vect) {
     estadoInf = OK;
   }
 
+  // no se si borraria este flag
   PCIFR |= (1<<PCIF0);
 }
 
@@ -198,10 +199,8 @@ ISR(TIMER2_COMPA_vect){
 	// Cuando se da la comparacion cambio el estado del pin solo si estoy en alto
 	// Hay una variable global que me dice si estoy en alto o en bajo
 	contPulsosEmSup++;
-	if(contPulsosEmSup <= CANT_PULSOS_ALTO_EM_SUP){
-		SetBit(PIN_EAD, EAD_NUMBER);
-		SetBit(PIN_EAT, EAT_NUMBER);
-	}
+	if(contPulsosEmSup <= CANT_PULSOS_ALTO_EM_SUP) 
+    SetBit(PIN_EAD, EAD_NUMBER);
 }
 
 ISR(INT0_vect){

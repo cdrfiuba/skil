@@ -4,17 +4,12 @@
 void configurarPinSensoresSup () {
 	SetBit(DDR_EAD, EAD_NUMBER);
 	ClearBit(PORT_EAD, EAD_NUMBER);
-	SetBit(DDR_EAT, EAT_NUMBER);
-	ClearBit(PORT_EAT, EAT_NUMBER);
 
   ClearBit(DDR_RAD, RAD_NUMBER);
 	SetBit(PORT_RAD, RAD_NUMBER);
-	ClearBit(DDR_RAT, RAT_NUMBER);
-	SetBit(PORT_RAT, RAT_NUMBER);
 
-
-    EICRA = (1<<ISC01) | (0<<ISC00); // | (1<<ISC11) | (0<<ISC10);
-    EIMSK = (1<<INT0); // | (1<<INT1);
+  EICRA = (1<<ISC01) | (0<<ISC00);
+  EIMSK = (1<<INT0); 
 
 }
 
@@ -71,19 +66,18 @@ void encenderEmisorSuperior(){
 void configurarPinSensoresInf(){
 	// Configuro los leds de los sensores en salida
 	SetBit(DDR_EP, EP_NUMBER);
-    apagarEmisorInferior();
+  apagarEmisorInferior();
 
 	// Configuro todos los sensores en entrada sin pull-up
 	ClearBit(DDR_RPA, RPA_NUMBER);
 	SetBit(PORT_RPA, RPA_NUMBER);
 	ClearBit(DDR_RPB, RPB_NUMBER);
 	SetBit(PORT_RPB, RPB_NUMBER);
-//	ClearBit(DDR_RPC, RPC_NUMBER);
-//	SetBit(PORT_RPC, RPC_NUMBER);
+	ClearBit(DDR_RPC, RPC_NUMBER);
+	SetBit(PORT_RPC, RPC_NUMBER);
 	ClearBit(DDR_RPD, RPD_NUMBER);
 	SetBit(PORT_RPD, RPD_NUMBER);
 
 	PCICR |= (1<<PCIE0);
-	//PCMSK2 = (1<<PCINT23);
-	PCMSK0 = (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT0);
+	PCMSK0 = (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT4)|(1<<PCINT0);
 }
