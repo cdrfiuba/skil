@@ -13,28 +13,12 @@ static inline void actualizar_velocidad (void) {
   vel_motor_izquierdo(velMI);
 }
 
-/*
-static inline void inc_vel_md(void){
-  if (velMD < VEL_MAX_ADELANTE) velMD++;
-}
-
-static inline void inc_vel_mi(void){
-  if (velMI < VEL_MAX_ADELANTE) velMI++;
-}
-
-static inline void dec_vel_md(void){
-  if (velMD > VEL_MAX_ATRAS) velMD--;
-}
-
-static inline void dec_vel_mi(void){
-  if (velMI < VEL_MAX_ADELANTE) velMI++;
-}
-*/
-
 void ConfigurarMotores(void) {
   SetBit(DDR_NSLEEP,NSLEEP_NUMBER);
-  ClearBit(DDR_NFAULT,NFAULT_NUMBER);
   ClearBit(PORT_NSLEEP,NSLEEP_NUMBER);
+
+  ClearBit(DDR_NFAULT,NFAULT_NUMBER);
+  SetBit(PORT_NFAULT,NFAULT_NUMBER);  //Agrego Pull up
 
   /*Configurar PWM */
   SetBit(DDR_MI_IN1,MI_IN1_NUMBER);
@@ -88,11 +72,8 @@ void MoverAdelante(){
   actualizar_velocidad();
 }
 
-
 void MoverAtras(){
   velMI = VEL_ATRAS;
   velMD = VEL_ATRAS;
   actualizar_velocidad();
 }
-
-

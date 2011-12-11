@@ -1,23 +1,35 @@
 #ifndef _SKIL_H_
 #define _SKIL_H_
 
-/* Definiciones correspondientes a los pulsadores */
-
 /* INT_ARRANQUE = Pulsador de Arranque */
 #define PORT_PULSADOR_NAME   C
 #define PULSADOR_NUMBER      1
-
-#define PORT_SOLENOIDE_NAME   C
-#define SOLENOIDE_NUMBER      2
 
 #define PORT_PULSADOR  def_port_reg(PORT_PULSADOR_NAME)
 #define PIN_PULSADOR   def_pin_reg(PORT_PULSADOR_NAME)
 #define DDR_PULSADOR   def_ddr_reg(PORT_PULSADOR_NAME)
 
+/* Macros */
+// Se setea como entrada y se pone el pin en '1'. Esto último hace que se 
+// active el pull-up interno
+#define PulsadorInit()  {ClearBit(DDR_PULSADOR, PULSADOR_NUMBER); SetBit(PORT_PULSADOR, PULSADOR_NUMBER);}
+
+// lee el pin del boton de arranque
+#define IsPulsadorSet()   IsBitSet(PIN_PULSADOR, PULSADOR_NUMBER)
+
+
+/* Solenoide */
+#define PORT_SOLENOIDE_NAME   C
+#define SOLENOIDE_NUMBER      2
+
 #define PORT_SOLENOIDE  def_port_reg(PORT_SOLENOIDE_NAME)
 #define PIN_SOLENOIDE  def_pin_reg(PORT_SOLENOIDE_NAME)
 #define DDR_SOLENOIDE   def_ddr_reg(PORT_SOLENOIDE_NAME)
 
+/* Macros */
+#define configurarSolenoide()    SetBit(DDR_SOLENOIDE, SOLENOIDE_NUMBER)
+#define energizarSolenoide()     SetBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER)
+#define desenergizarSolenoide()  ClearBit(PORT_SOLENOIDE, SOLENOIDE_NUMBER)
 
 
 /*LED1 = LED 1 (Verde)*/
@@ -34,35 +46,16 @@
 #define Led1Off()   ClearBit(PORT_LED1, LED1_NUMBER)
 
 #define IsLed1On()    IsBitSet(PORT_LED1, LED1_NUMBER)
-#define Led1Toggle()  {if ( IsLed1On() ) Led1Off(); else Led1On();}
-
-/* Macros */
-// Se setea como entrada y se pone el pin en '1'. Esto último hace que se 
-// active el pull-up interno
-#define PulsadorInit()  {ClearBit(DDR_PULSADOR, PULSADOR_NUMBER); SetBit(PORT_PULSADOR, PULSADOR_NUMBER);}
-
-// lee el pin del boton de arranque
-#define IsPulsadorSet()   IsBitSet(PIN_PULSADOR, PULSADOR_NUMBER)
+//#define Led1Toggle()  {if ( IsLed1On() ) Led1Off(); else Led1On();}
+#define Led1Toggle()  SetBit(PIN_LED1, LED1_NUMBER)
 
 /* ----------------------------------------------------- */
-#define CANT_REPETICIONES 10
 
 typedef enum {
 	FIGHT_ADELANTE,
-  FIGHT_ATRAS,
 	TRACKING,
 	DETENIDO
 } estados;
-
-typedef enum {
-	ADELANTE_DER,
-	ADELANTE_IZQ,
-	ATRAS_DER,
-	ATRAS_IZQ,
-	ATRAS,
-	ADELANTE,
-	OK
-} estadosInf;
 
 typedef enum {
 	GIRANDO_DERECHA,
@@ -71,11 +64,16 @@ typedef enum {
 	ATRAZANDO
 } estadosTracking;
 
-void setearSensoresInf(void);
+
+extern volatile estados estado;
+
+/* prototipos de funciones usadas en skil.c */
+
 void configurarPulsador(void);
-void movimientoPrueba(void);
+void setup(void);
+//unsigned char actualizar_estado(void);
 void accionFightAdelante(void);
-void accionFightAtras(void);
+//void accionFightAtras(void);
 void accionTracking(void);
 void accionAdelanteDer(void);
 void accionAdelanteIzq(void);
@@ -83,7 +81,9 @@ void accionAtrasDer(void);
 void accionAtrasIzq(void);
 void accionAtrasInf(void);
 void accionAdelanteInf(void);
-void activarSolenoide(void);
-void configurarSolenoide(void);
 
+/* prototipos de funciones de prueba */
+void movimientoPrueba(void);
+void MostrarError(void);
+void titilarLed(uint8_t numero);
 #endif
