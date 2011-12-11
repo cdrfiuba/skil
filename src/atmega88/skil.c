@@ -12,7 +12,7 @@ volatile estados estado;
 
 #define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
 
-#define DELAY_ESTADO    5 // en milisegundos
+#define DELAY_ESTADO    50 // en milisegundos
 #define DELAY_INICIO    2000 // en milisegundos 5200
 
 int main (void) {
@@ -28,30 +28,30 @@ Led1Off();
 
 Led1On();
 	while(1){
-    if (IsnFaultSet()==0) MostrarError();
+    if (IsnFaultSet()==0) MostrarError(); //debería recuperarse del error
+    if (flagVisto==1) {
+      estado = FIGHT_ADELANTE;
+      flagVisto = 0;
+    }
 
-//    movimientoPrueba();
     switch (estadoInf){
       case OK:
-/*        switch(estado){
+        switch(estado){
           case FIGHT_ADELANTE:
-            accionFightAdelante();
-_delay_ms(100);
-Led1Toggle();
             estado = TRACKING;
+            accionFightAdelante();
             _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
-            GirarIzquierda();
-            while (flagVisto == 0);
-            flagVisto = 0; 
-            estado = FIGHT_ADELANTE;
+            accionTracking();
+//            GirarDerecha();
+//            _delay_ms(200);
             break;
           case DETENIDO:
           default: 
             ApagarMotores();
             break;
-        }*/
+        }
         break;
       case ATRAS:
         estadoInf = OK;
@@ -133,7 +133,7 @@ void accionFightAdelante(void){
 */
 
 /*Accion de las funciones que actuan segun que sensor inferior sale del tatami*/
-void accionAtrasInf(void){
+/*void accionAtrasInf(void){
 	MoverAdelante();
 
   estadoInf = OK;
@@ -151,6 +151,26 @@ void accionAdelanteInf(void){
 
   // no se si borraria este flag (AB)
   PCIFR |= (1<<PCIF0); // | (1<<PCIF0);    
+}
+*/
+
+void accionTracking(void){
+	uint8_t temp = proximoEstadoAleatorio();
+  switch(temp) {
+    case 0:
+      MoverAdelante();
+      break;
+    case 1:
+      MoverAtras();
+      break;
+    case 2:
+      GirarIzquierda();
+      break;
+    case 3:
+      GirarDerecha();
+      break;
+  }
+  _delay_ms(200);
 }
 
 // Interrupcion de pulsador (vetor_4)
