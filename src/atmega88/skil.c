@@ -6,90 +6,93 @@
 #include "sensores.h"
 #include "skil.h"
 
-volatile estados estado;
-//volatile estadosTracking estadoInterno; //no se esta usando
-//volatile uint8_t cantVeces;
+#define DELAY_ESTADO    5 // en milisegundos
+#define DELAY_ESCAPE    500 // en milisegundos
+#define DELAY_INICIO    1000 // en milisegundos 5200
+#define ALEATOREO_DELAY   500
 
+// la macro 
 #define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
+#define ALEATOREO_MAX_CUENTA   ALEATOREO_DELAY/DELAY_ESTADO
 
-#define DELAY_ESTADO    50 // en milisegundos
-#define DELAY_INICIO    2000 // en milisegundos 5200
+volatile estados estado;
+
+// utilizado para definir la cantidad de repeticion de la misma accion aleatorea
+// (ver accionTracking )
+volatile uint8_t cantVeces;
 
 int main (void) {
 	setup();
-Led1Off();
 
   while (estado == DETENIDO);
-  
-  _delay_ms(DELAY_INICIO); //tiempo de espera para bajar pollera
+  //tiempo de espera para bajar pollera
+  _delay_ms(DELAY_INICIO);
+
+  // la pollera no la estamos usando, pero mejor desconectarla
+  // el solenoide no puede que
   desenergizarSolenoide();
+  
   encenderEmisorSuperior();
   encenderEmisorInferior();
 
-Led1On();
 	while(1){
-    if (IsnFaultSet()==0) MostrarError(); //debería recuperarse del error
+    if (IsnFaultSet()==0) {
+      titilarLed(20);
+      ConfigurarMotores();
+      EncenderMotores();
+      MoverAdelante();
+    }
     if (flagVisto==1) {
       estado = FIGHT_ADELANTE;
       flagVisto = 0;
     }
+    
+    estadoInf = PINB & MASK_INT_PIN_ALL;
 
     switch (estadoInf){
       case OK:
         switch(estado){
           case FIGHT_ADELANTE:
             estado = TRACKING;
-            accionFightAdelante();
+            Led1On();
+	          MoverAdelante();
             _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
             accionTracking();
-//            GirarDerecha();
-//            _delay_ms(200);
+            Led1Toggle();
+            _delay_ms(DELAY_ESTADO);
             break;
           case DETENIDO:
           default: 
             ApagarMotores();
+            titilarLed(12);
             break;
         }
         break;
       case ATRAS:
-        estadoInf = OK;
         MoverAdelante();
-        _delay_ms(200);
+        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE:
-        estadoInf = OK;
         MoverAtras();
-        _delay_ms(200);
+        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE_DER:
-        estadoInf = OK;
-        GirarDerecha();
-        _delay_ms(100);
-        MoverAtras();
-        _delay_ms(200);
+        GirarIzquierdaAtras();
+        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE_IZQ:
-        estadoInf = OK;
-        GirarIzquierda();
-        _delay_ms(100);
-        MoverAtras();
-        _delay_ms(200);
+        GirarDerechaAtras();
+        _delay_ms(DELAY_ESCAPE);
         break;
       case ATRAS_DER:
-        estadoInf = OK;
-        GirarIzquierda();
-        _delay_ms(100);
-        MoverAdelante();
-        _delay_ms(200);
+        GirarIzquierdaAdelante();
+        _delay_ms(DELAY_ESCAPE);
         break;
       case ATRAS_IZQ:
-        estadoInf = OK;
-        GirarDerecha();
-        _delay_ms(100);
-        MoverAdelante();
-        _delay_ms(200);
+        GirarDerechaAdelante();
+        _delay_ms(DELAY_ESCAPE);
         break;
       default:
         ApagarMotores();
@@ -99,19 +102,20 @@ Led1On();
   }
 }
 
+
 void setup (void) {
 	ConfigurarMotores();
-  configurarSolenoide();
 	configurarPinSensoresSup();
 	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
 	configurarPulsador();
+  configurarSolenoide();
   energizarSolenoide();
   Led1Init();
+  Led1Off();
 
 	estado = DETENIDO;
-//	estadoInterno = ADELANTANDO; //no se esta usando
-//  cantVeces = 0;
+  cantVeces = 0;
 	sei();
 }
 
@@ -122,55 +126,29 @@ void configurarPulsador(void){
 	PCMSK1 = (1<<PCINT9);
 }
 
-void accionFightAdelante(void){
-	MoverAdelante();
-}
-
-/*
- * void accionFightAtras(void){
-	MoverAtras();	
-}
-*/
-
-/*Accion de las funciones que actuan segun que sensor inferior sale del tatami*/
-/*void accionAtrasInf(void){
-	MoverAdelante();
-
-  estadoInf = OK;
-  _delay_ms(200);
-
-  // no se si borraria este flag (AB)
-  PCIFR |= (1<<PCIF0);
-}
-
-void accionAdelanteInf(void){
-	MoverAtras();
-
-  estadoInf = OK;
-  _delay_ms(200);
-
-  // no se si borraria este flag (AB)
-  PCIFR |= (1<<PCIF0); // | (1<<PCIF0);    
-}
-*/
-
 void accionTracking(void){
-	uint8_t temp = proximoEstadoAleatorio();
-  switch(temp) {
-    case 0:
-      MoverAdelante();
-      break;
-    case 1:
-      MoverAtras();
-      break;
-    case 2:
-      GirarIzquierda();
-      break;
-    case 3:
-      GirarDerecha();
-      break;
+	uint8_t temp;
+  if (cantVeces < ALEATOREO_MAX_CUENTA) {
+    cantVeces++;
   }
-  _delay_ms(200);
+  else{
+    cantVeces=0;
+    temp = proximoEstadoAleatorio();
+    switch(temp) {
+      case 0:
+        RotarIzquierda();
+        break;
+      case 1:
+        GirarDerechaAdelante();
+        break;
+      case 2:
+        GirarDerechaAtras();
+        break;
+      case 3:
+        RotarDerecha();
+        break;
+    }
+  }
 }
 
 // Interrupcion de pulsador (vetor_4)
@@ -178,14 +156,15 @@ ISR(PCINT1_vect) {
 	// Delay para debounce
 	// Dado que no tenemos necesidad de hacer nada mientras esperamos por el
 	// debounce lo dejamos asi. Sino, deberiamos utilizar algun timer
-	_delay_ms(50);
+	_delay_ms(250);
 
 	if (IsPulsadorSet() == true) { 
 	// significa que esta en 1 y hubo flanco ascendente genuino
 	// se podria reemplazar la variable por poner apagar todo, poner 
 	// el micro a dormir esperando solo esta interrupcion y luego
 	// despertalo. Aca se lo despertaria
-//    EncenderMotores();
+    EncenderMotores();
+//  
     estado = TRACKING;
 	}
 
@@ -200,31 +179,13 @@ ISR(PCINT1_vect) {
 /* funciones de prueba */
 void movimientoPrueba(void){
 	MoverAdelante();
-	_delay_ms(300);
+	_delay_ms(400);
+	GirarIzquierdaAtras();
+	_delay_ms(400);
+	GirarDerechaAtras();
+	_delay_ms(400);
 	MoverAtras();
-	_delay_ms(300);
-	GirarIzquierda();
 	_delay_ms(100);
-	GirarDerecha();
-	_delay_ms(100);
-}
-
-void MostrarError() {
-  Led1Off();
-  while(1) {
-    Led1Toggle();
-    _delay_ms(100);
-    Led1Toggle();
-    _delay_ms(100);
-    Led1Toggle();
-    _delay_ms(100);
-    Led1Toggle();
-    _delay_ms(100);
-    Led1Toggle();
-    _delay_ms(500);
-    Led1Toggle();
-    _delay_ms(100);
-  }
 }
 
 void titilarLed(uint8_t numero){

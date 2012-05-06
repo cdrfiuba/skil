@@ -68,7 +68,7 @@
 #define DDR_RAD   def_ddr_reg(PORT_RAD_NAME)
 
 // Comentar la siguiente definicion cuando se trabaja con un tatami blanco
-//#define TATAMI_NEGRO
+#define TATAMI_NEGRO
 #define MASK_INT_PIN_ALL (uint8_t)((1<<RPA_NUMBER)|(1<<RPB_NUMBER)|(1<<RPC_NUMBER)|(1<<RPD_NUMBER))
 
 // Defino las mascaras para la interrupcion
@@ -96,7 +96,7 @@
 // Top del timer para generar cuadrada de 40khz
 // Con 100 anda bien
 // Con 140 tiene 5 cm de alcance y sirve para hacer pruebas
-#define OCR_EMISORES_SUP         140
+#define OCR_EMISORES_SUP         100
 #define CANT_PULSOS_ALTO_EM_SUP  25 // despues se multiplica por dos, para generar los dos flancos del pulso
 
 typedef enum {

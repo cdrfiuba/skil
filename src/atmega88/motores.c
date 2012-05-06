@@ -54,13 +54,37 @@ void Detener(){
   actualizar_velocidad();
 }
 
-void GirarIzquierda(){
+void GirarIzquierdaAdelante(){
+  velMD = VEL_ADELANTE;
+  velMI = VEL_MEDADELANTE;
+  actualizar_velocidad();
+}
+
+void GirarDerechaAdelante(){
+  velMI = VEL_ADELANTE;
+  velMD = VEL_MEDADELANTE;
+  actualizar_velocidad();
+}
+
+void GirarIzquierdaAtras(){
+  velMD = VEL_ATRAS;
+  velMI = VEL_MEDATRAS;
+  actualizar_velocidad();
+}
+
+void GirarDerechaAtras(){
+  velMI = VEL_ATRAS;
+  velMD = VEL_MEDATRAS;
+  actualizar_velocidad();
+}
+
+void RotarIzquierda(){
   velMD = VEL_ADELANTE;
   velMI = VEL_ATRAS;
   actualizar_velocidad();
 }
 
-void GirarDerecha(){
+void RotarDerecha(){
   velMI = VEL_ADELANTE;
   velMD = VEL_ATRAS;
   actualizar_velocidad();

@@ -71,19 +71,9 @@ extern volatile estados estado;
 
 void configurarPulsador(void);
 void setup(void);
-//unsigned char actualizar_estado(void);
-void accionFightAdelante(void);
-//void accionFightAtras(void);
 void accionTracking(void);
-void accionAdelanteDer(void);
-void accionAdelanteIzq(void);
-void accionAtrasDer(void);
-void accionAtrasIzq(void);
-void accionAtrasInf(void);
-void accionAdelanteInf(void);
 
 /* prototipos de funciones de prueba */
 void movimientoPrueba(void);
-void MostrarError(void);
 void titilarLed(uint8_t numero);
 #endif

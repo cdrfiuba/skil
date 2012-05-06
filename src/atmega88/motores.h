@@ -72,6 +72,8 @@
 
 #define VEL_DETENIDO          0x80
 #define VEL_ADELANTE          0xF0
+#define VEL_MEDADELANTE       0xC0
+#define VEL_MEDATRAS          0x40
 #define VEL_ATRAS             0x10
 
 extern volatile unsigned char velMI;
@@ -82,10 +84,13 @@ void ApagarMotores(void);
 void EncenderMotores(void);
 void Detener(void);
 void MoverAdelante(void);
-void MoverFight(void);
 void MoverAtras(void);
-void GirarIzquierda(void);
-void GirarDerecha(void);  
+void RotarIzquierda(void);
+void RotarDerecha(void);  
+void GirarIzquierdaAdelante(void);
+void GirarDerechaAdelante(void);  
+void GirarIzquierdaAtras(void);
+void GirarDerechaAtras(void);  
 
 static inline void vel_motor_derecho(const unsigned char temp) {
   OCR1AL = temp;

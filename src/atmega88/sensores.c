@@ -10,14 +10,13 @@ volatile uint8_t contPulsosEmSup;
 volatile uint8_t flagVisto;
 
 volatile estadosInf estadoInf;
-//volatile uint8_t sensoresInf;
 
 void configurarPinSensoresSup () {
-	SetBit(DDR_EAD, EAD_NUMBER);
-	ClearBit(PORT_EAD, EAD_NUMBER);
+	SetBit(DDR_EAD, EAD_NUMBER);  //Configuro emisor adelante como salida
+	ClearBit(PORT_EAD, EAD_NUMBER); //
 	
-  ClearBit(DDR_RAD, RAD_NUMBER);
-	SetBit(PORT_RAD, RAD_NUMBER);
+  ClearBit(DDR_RAD, RAD_NUMBER); //Configuro receptor como entrada
+	SetBit(PORT_RAD, RAD_NUMBER); //Pongo Pull-Up interno
 	
   EICRA = (1<<ISC01) | (0<<ISC00);
   EIMSK = (1<<INT0);
@@ -68,18 +67,19 @@ void configurarPinSensoresInf(){
 
 	// Configuro todos los sensores en entrada sin pull-up
 	ClearBit(DDR_RPA, RPA_NUMBER);
-	SetBit(PORT_RPA, RPA_NUMBER);
+	ClearBit(PORT_RPA, RPA_NUMBER);
 	ClearBit(DDR_RPB, RPB_NUMBER);
-	SetBit(PORT_RPB, RPB_NUMBER);
+	ClearBit(PORT_RPB, RPB_NUMBER);
 	ClearBit(DDR_RPC, RPC_NUMBER);
-	SetBit(PORT_RPC, RPC_NUMBER);
+	ClearBit(PORT_RPC, RPC_NUMBER);
 	ClearBit(DDR_RPD, RPD_NUMBER);
-	SetBit(PORT_RPD, RPD_NUMBER);
+	ClearBit(PORT_RPD, RPD_NUMBER);
 
 	estadoInf = OK;
 
-	PCICR |= (1<<PCIE0);
-	PCMSK0 = (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT4)|(1<<PCINT0);
+  // No estamos usando los sensores inferiores con interrupc
+//	PCICR |= (1<<PCIE0);
+//	PCMSK0 = (1<<PCINT7)|(1<<PCINT6)|(1<<PCINT4)|(1<<PCINT0);
 }
 
 
@@ -89,7 +89,7 @@ ISR(TIMER2_COMPA_vect){
 	// Hay una variable global que me dice si estoy en alto o en bajo
 	contPulsosEmSup++;
 	if(contPulsosEmSup <= (2*CANT_PULSOS_ALTO_EM_SUP))
-    SetBit(PIN_EAD, EAD_NUMBER);
+    SetBit(PIN_EAD, EAD_NUMBER); //Hace un toogle del pin
 }
 
 
@@ -100,11 +100,11 @@ ISR(INT0_vect){
 }
 
 
+/*
 // Interrupcion de sensores inferiores (vector_3)
 ISR(PCINT0_vect) {
-  estadoInf = PINB & MASK_INT_PIN_ALL;
 
   // no se si borraria este flag (AB)
 //  PCIFR |= (1<<PCIF0);
 }
-
+*/
