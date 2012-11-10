@@ -6,16 +6,16 @@
 #include "sensores.h"
 #include "skil.h"
 
-#define DELAY_ESTADO    5 // en milisegundos
+#define DELAY_ESTADO    2 // en milisegundos
 #define DELAY_ESCAPE    500 // en milisegundos
-#define DELAY_INICIO    1000 // en milisegundos 5200
+#define DELAY_INICIO    5200 // en milisegundos 5200
 #define ALEATOREO_DELAY   500
 
 // la macro 
 #define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
 #define ALEATOREO_MAX_CUENTA   ALEATOREO_DELAY/DELAY_ESTADO
 
-volatile estados estado;
+volatile estados_t estado;
 
 // utilizado para definir la cantidad de repeticion de la misma accion aleatorea
 // (ver accionTracking )
@@ -23,6 +23,14 @@ volatile uint8_t cantVeces;
 
 int main (void) {
 	setup();
+
+//	if (IsPulsadorSet() == false) { 
+//
+//    desenergizarSolenoide();
+//    EncenderMotores();
+//    cli();
+//    while(1) movimientoPrueba();
+//  }
 
   while (estado == DETENIDO);
   //tiempo de espera para bajar pollera
@@ -34,6 +42,7 @@ int main (void) {
   
   encenderEmisorSuperior();
   encenderEmisorInferior();
+  _delay_ms(5);
 
 	while(1){
     if (IsnFaultSet()==0) {
@@ -49,6 +58,7 @@ int main (void) {
     
     estadoInf = PINB & MASK_INT_PIN_ALL;
 
+    Led1Off();
     switch (estadoInf){
       case OK:
         switch(estado){
@@ -59,8 +69,8 @@ int main (void) {
             _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
+            //RotarIzquierda();
             accionTracking();
-            Led1Toggle();
             _delay_ms(DELAY_ESTADO);
             break;
           case DETENIDO:
@@ -110,7 +120,7 @@ void setup (void) {
 	configurarTimerSensoresSup();
 	configurarPulsador();
   configurarSolenoide();
-  energizarSolenoide();
+//  energizarSolenoide();
   Led1Init();
   Led1Off();
 

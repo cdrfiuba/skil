@@ -9,7 +9,7 @@
 volatile uint8_t contPulsosEmSup;
 volatile uint8_t flagVisto;
 
-volatile estadosInf estadoInf;
+volatile estadosInf_t estadoInf;
 
 void configurarPinSensoresSup () {
 	SetBit(DDR_EAD, EAD_NUMBER);  //Configuro emisor adelante como salida

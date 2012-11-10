@@ -60,8 +60,8 @@
 #define DDR_MD_IN2   def_ddr_reg(PORT_MD_IN2_NAME)
 
 
-#define TMR0MASKON   ( (0<<CS02) | (0<<CS01) | (1<<CS00) )
-#define TMR1MASKON   ( (0<<CS12) | (0<<CS11) | (1<<CS10) )
+#define TMR0MASKON   ( (0<<CS02) | (1<<CS01) | (0<<CS00) )
+#define TMR1MASKON   ( (0<<CS12) | (1<<CS11) | (0<<CS10) )
 #define TMR0MASKOFF ~( (1<<CS02) | (1<<CS01) | (1<<CS00) )
 #define TMR1MASKOFF ~( (1<<CS12) | (1<<CS11) | (1<<CS10) )
 
@@ -71,10 +71,10 @@
 /* ------------------------------------------------------ */
 
 #define VEL_DETENIDO          0x80
-#define VEL_ADELANTE          0xF0
+#define VEL_ADELANTE          0xFD
 #define VEL_MEDADELANTE       0xC0
 #define VEL_MEDATRAS          0x40
-#define VEL_ATRAS             0x10
+#define VEL_ATRAS             0x02
 
 extern volatile unsigned char velMI;
 extern volatile unsigned char velMD;

@@ -55,17 +55,17 @@ typedef enum {
 	FIGHT_ADELANTE,
 	TRACKING,
 	DETENIDO
-} estados;
+} estados_t;
 
 typedef enum {
 	GIRANDO_DERECHA,
 	GIRANDO_IZQUIERDA,
 	ADELANTANDO,
 	ATRAZANDO
-} estadosTracking;
+} estadosTracking_t;
 
 
-extern volatile estados estado;
+//extern volatile estados_t estado;
 
 /* prototipos de funciones usadas en skil.c */
 

@@ -3,6 +3,7 @@ CLK = 8000000UL
 # TARGET es el nombre del proyecto
 TARGET = skil
 
+TATAMI = TATAMI_NEGRO
 # MMCU es el microcontralador para el target para el avr-gcc
 # Para ver el listado de posibles opciones ir a:
 #      http://avr-libc.nongnu.org/user-manual/index.html
@@ -12,7 +13,7 @@ MMCU = atmega88pa
 # Para el Atemga88: m88
 # Para ver el listado de posibles opciones hacer:
 #      avrdude -p ?
-TARGET_P = m88pa
+TARGET_P = m88p
 
 # HFUSE 
 # Para el Atmega88 (pagina 299)
@@ -35,13 +36,15 @@ INC = skil.h motores.h definiciones.h sensores.h
 # Si se deja -O vacio el compilador elige '-01'
 CFLAGS = -O2 -Wall
 
-CDEFINES = -DF_CPU=$(CLK)
-
+CDEFINES = -DF_CPU=$(CLK) -D$(TATAMI)
 all: hex
+
+tatamiblanco:
+	@make 'TATAMI=TATAMI_BLANCO'
 
 hex: $(SRC) $(INC)
 	avr-gcc $(CFLAGS) $(CDEFINES) -mmcu=$(MMCU) -o $(TARGET).bin -I/usr/avr/include/ $(SRC)
-	avr-objcopy -j .text -O ihex  $(TARGET).bin $(TARGET).hex
+	avr-objcopy -j .text -j .data -O ihex  $(TARGET).bin $(TARGET).hex
 	avr-objdump -h -S $(TARGET).bin > "$(TARGET).lst"
 	avr-size $(TARGET).bin
 
