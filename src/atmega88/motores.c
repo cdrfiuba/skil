@@ -4,14 +4,13 @@
 #include "definiciones.h"
 #include "motores.h"
 
+#define MDAdelante() {ClearBit(PORT_MD_IN1,MD_IN1_NUMBER);SetBit(PORT_MD_IN2,MD_IN2_NUMBER);}
+#define MDAtras() {SetBit(PORT_MD_IN1,MD_IN1_NUMBER);ClearBit(PORT_MD_IN2,MD_IN2_NUMBER);}
+#define MDStop() {ClearBit(PORT_MD_IN1,MD_IN1_NUMBER);ClearBit(PORT_MD_IN2,MD_IN2_NUMBER);}
 
-volatile unsigned char velMI;
-volatile unsigned char velMD;
-
-static inline void actualizar_velocidad (void) {
-  vel_motor_derecho(velMD);
-  vel_motor_izquierdo(velMI);
-}
+#define MIAtras() {ClearBit(PORT_MI_IN1,MI_IN1_NUMBER);SetBit(PORT_MI_IN2,MI_IN2_NUMBER);}
+#define MIAdelante() {SetBit(PORT_MI_IN1,MI_IN1_NUMBER);ClearBit(PORT_MI_IN2,MI_IN2_NUMBER);}
+#define MIStop() {ClearBit(PORT_MI_IN1,MI_IN1_NUMBER);ClearBit(PORT_MI_IN2,MI_IN2_NUMBER);}
 
 void ConfigurarMotores(void) {
   SetBit(DDR_NSLEEP,NSLEEP_NUMBER);
@@ -23,13 +22,9 @@ void ConfigurarMotores(void) {
   /*Configurar PWM */
   SetBit(DDR_MI_IN1,MI_IN1_NUMBER);
   SetBit(DDR_MI_IN2,MI_IN2_NUMBER);
-  TCCR0A = (1<<COM0A1) | (0<<COM0A0) | (1<<COM0B1) | (1<<COM0B0) | (1<<WGM01) | (1<<WGM00);
-  TCCR0B = (0<<WGM02);
 
   SetBit(DDR_MD_IN1,MD_IN1_NUMBER);
   SetBit(DDR_MD_IN2,MD_IN2_NUMBER);
-  TCCR1A = (1<<COM0A1) | (0<<COM0A0) | (1<<COM0B1) | (1<<COM0B0) | (0<<WGM11) | (1<<WGM10);
-  TCCR1B = (0<<WGM13) | (1<<WGM12);
 
   ApagarMotores();
   _delay_ms(2);
@@ -38,66 +33,57 @@ void ConfigurarMotores(void) {
 void ApagarMotores(void) {
   ClearBit(PORT_NSLEEP,NSLEEP_NUMBER);
   Detener();
-  TCCR0B &= TMR0MASKOFF;
-  TCCR1B &= TMR1MASKOFF;
 }
 
 void EncenderMotores(void) {
-  TCCR0B |= TMR0MASKON;
-  TCCR1B |= TMR0MASKON;
   SetBit(PORT_NSLEEP,NSLEEP_NUMBER);
+  Detener();
 }
 
 void Detener(){
-  velMD = VEL_DETENIDO;
-  velMI = VEL_DETENIDO;
-  actualizar_velocidad();
+  ClearBit(PORT_MI_IN1,MI_IN1_NUMBER);
+  ClearBit(PORT_MI_IN2,MI_IN2_NUMBER);
+
+  ClearBit(PORT_MD_IN1,MD_IN1_NUMBER);
+  ClearBit(PORT_MD_IN2,MD_IN2_NUMBER);
 }
 
 void GirarIzquierdaAdelante(){
-  velMD = VEL_ADELANTE;
-  velMI = VEL_MEDADELANTE;
-  actualizar_velocidad();
+  MIStop();
+  MDAdelante();
 }
 
 void GirarDerechaAdelante(){
-  velMI = VEL_ADELANTE;
-  velMD = VEL_MEDADELANTE;
-  actualizar_velocidad();
+  MDStop();
+  MIAdelante();
 }
 
 void GirarIzquierdaAtras(){
-  velMD = VEL_ATRAS;
-  velMI = VEL_MEDATRAS;
-  actualizar_velocidad();
+  MDStop();
+  MIAtras();
 }
 
 void GirarDerechaAtras(){
-  velMI = VEL_ATRAS;
-  velMD = VEL_MEDATRAS;
-  actualizar_velocidad();
+  MIStop();
+  MDAtras();
 }
 
 void RotarIzquierda(){
-  velMD = VEL_ADELANTE;
-  velMI = VEL_ATRAS;
-  actualizar_velocidad();
+  MDAdelante();
+  MIAtras();
 }
 
 void RotarDerecha(){
-  velMI = VEL_ADELANTE;
-  velMD = VEL_ATRAS;
-  actualizar_velocidad();
+  MIAdelante();
+  MDAtras();
 }
 
 void MoverAdelante(){
-  velMI = VEL_ADELANTE;
-  velMD = VEL_ADELANTE;
-  actualizar_velocidad();
+  MDAdelante();
+  MIAdelante();
 }
 
 void MoverAtras(){
-  velMI = VEL_ATRAS;
-  velMD = VEL_ATRAS;
-  actualizar_velocidad();
+  MDAtras();
+  MIAtras();
 }

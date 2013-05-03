@@ -79,6 +79,8 @@
   #define MASK_INT_SENSC	(uint8_t)(~(1<<RPC_NUMBER)) // 0xEF
   #define MASK_INT_SENSD	(uint8_t)(~(1<<RPD_NUMBER)) // 0xFE
   #define MASK_INT_SENSAT (uint8_t)(~((1<<RPC_NUMBER)|(1<<RPD_NUMBER))) // 0xEE
+  #define MASK_INT_SENSDER (uint8_t)(~((1<<RPB_NUMBER)|(1<<RPD_NUMBER))) // 0xEE
+  #define MASK_INT_SENSIZQ (uint8_t)(~((1<<RPC_NUMBER)|(1<<RPA_NUMBER))) // 0xEE
 #elif defined TATAMI_BLANCO
   #define MASK_INT_OK     ~MASK_INT_PIN_ALL
   #define MASK_INT_SENSA	(uint8_t)(1<<RPA_NUMBER) // 0x80
@@ -87,6 +89,8 @@
   #define MASK_INT_SENSC	(uint8_t)(1<<RPC_NUMBER) // 0x10
   #define MASK_INT_SENSD	(uint8_t)(1<<RPD_NUMBER) // 0x01
   #define MASK_INT_SENSAT (uint8_t)((1<<RPC_NUMBER)|(1<<RPD_NUMBER)) // 0x11
+  #define MASK_INT_SENSDER (uint8_t)((1<<RPB_NUMBER)|(1<<RPD_NUMBER)) // 0x11
+  #define MASK_INT_SENSIZQ (uint8_t)((1<<RPC_NUMBER)|(1<<RPA_NUMBER)) // 0x11
 #else
   #error TATAMI NO DEFINIDO
 #endif
@@ -107,7 +111,9 @@ typedef enum {
 	ADELANTE_DER = MASK_INT_SENSB & MASK_INT_PIN_ALL,
 	ADELANTE_IZQ = MASK_INT_SENSA & MASK_INT_PIN_ALL,
 	ATRAS_DER = MASK_INT_SENSD & MASK_INT_PIN_ALL,
-	ATRAS_IZQ = MASK_INT_SENSC & MASK_INT_PIN_ALL
+	ATRAS_IZQ = MASK_INT_SENSC & MASK_INT_PIN_ALL,
+  DERECHA = MASK_INT_SENSDER & MASK_INT_PIN_ALL,
+  IZQUIERDA = MASK_INT_SENSIZQ & MASK_INT_PIN_ALL
 } estadosInf_t;
 
 extern volatile estadosInf_t estadoInf;

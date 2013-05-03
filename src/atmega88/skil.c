@@ -8,7 +8,7 @@
 
 #define DELAY_ESTADO    2 // en milisegundos
 #define DELAY_ESCAPE    500 // en milisegundos
-#define DELAY_INICIO    5200 // en milisegundos 5200
+#define DELAY_INICIO    200 // en milisegundos 5100
 #define ALEATOREO_DELAY   500
 
 // la macro 
@@ -103,6 +103,14 @@ int main (void) {
       case ATRAS_IZQ:
         GirarDerechaAdelante();
         _delay_ms(DELAY_ESCAPE);
+        break;
+      case DERECHA:
+        RotarIzquierda();
+        _delay_ms(DELAY_ESTADO);
+        break;
+      case IZQUIERDA:
+        RotarDerecha();
+        _delay_ms(DELAY_ESTADO);
         break;
       default:
         ApagarMotores();
