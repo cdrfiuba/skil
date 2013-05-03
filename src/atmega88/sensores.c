@@ -9,7 +9,8 @@
 volatile uint8_t contPulsosEmSup;
 volatile uint8_t flagVisto;
 
-volatile estadosInf_t estadoInf;
+volatile estadosInf_t sensoresInf;
+extern volatile estados_t estado;
 
 void configurarPinSensoresSup () {
 	SetBit(DDR_EAD, EAD_NUMBER);  //Configuro emisor adelante como salida
@@ -20,6 +21,22 @@ void configurarPinSensoresSup () {
 	
   EICRA = (1<<ISC01) | (0<<ISC00);
   EIMSK = (1<<INT0);
+}
+
+
+void configurarTimerEstados() {
+	TCCR1A = (0<<COM1A1)|(0<<COM1A0)|(0<<COM1B1)|(0<<COM1B0)|(0<<WGM11)|(0<<WGM10);
+	TCCR1B = (0<<WGM12)|(0<<WGM13);
+	TIMSK1 = (0<<OCIE1B)|(0<<OCIE1A)|(1<<TOIE1);
+}
+
+void arrancarTimerEstados(uint16_t tiempo) {
+	TCNT1 = 0xFFFF-tiempo;
+  TCCR1B |= (1<<CS12)|(0<<CS11)|(0<<CS10);
+}
+
+void detenerTimerEstados() {
+  TCCR1B |= (0<<CS12)|(0<<CS11)|(0<<CS10);
 }
 
 void configurarTimerSensoresSup () {
@@ -75,7 +92,7 @@ void configurarPinSensoresInf(){
 	ClearBit(DDR_RPD, RPD_NUMBER);
 	ClearBit(PORT_RPD, RPD_NUMBER);
 
-	estadoInf = OK;
+	sensoresInf = OK;
 
   // No estamos usando los sensores inferiores con interrupc
 //	PCICR |= (1<<PCIE0);
@@ -95,16 +112,21 @@ ISR(TIMER2_COMPA_vect){
 
 // Interrupcion receptor superior (vector_1)
 ISR(INT0_vect){
-//  estado = FIGHT_ADELANTE;
-  flagVisto = 1;
+  estado = FIGHT_ADELANTE;
+  //flagVisto = 1;
 }
 
 
+ISR(TIMER1_OVF_vect){
+  detenerTimerEstados();
+  estado = TRACKING; 
+}
 /*
 // Interrupcion de sensores inferiores (vector_3)
 ISR(PCINT0_vect) {
 
   // no se si borraria este flag (AB)
+  // 
 //  PCIFR |= (1<<PCIF0);
 }
 */

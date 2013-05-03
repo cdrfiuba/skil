@@ -13,7 +13,7 @@
 
 // la macro 
 #define proximoEstadoAleatorio() (TCNT2 & 0x03) //Devuelve un numero aleatorio entre 0 y 3
-#define ALEATOREO_MAX_CUENTA   ALEATOREO_DELAY/DELAY_ESTADO
+#define ALEATOREO_MAX_CUENTA   5000 
 
 volatile estados_t estado;
 
@@ -45,33 +45,31 @@ int main (void) {
   _delay_ms(5);
 
 	while(1){
+
+    // Verifica el puente H
     if (IsnFaultSet()==0) {
       titilarLed(20);
       ConfigurarMotores();
       EncenderMotores();
       MoverAdelante();
     }
-    if (flagVisto==1) {
-      estado = FIGHT_ADELANTE;
-      flagVisto = 0;
-    }
     
-    estadoInf = PINB & MASK_INT_PIN_ALL;
+    sensoresInf = PINB & MASK_INT_PIN_ALL;
 
-    Led1Off();
-    switch (estadoInf){
+
+    switch (sensoresInf){
       case OK:
         switch(estado){
           case FIGHT_ADELANTE:
-            estado = TRACKING;
             Led1On();
 	          MoverAdelante();
-            _delay_ms(DELAY_ESTADO);
             break;
           case TRACKING:
-            //RotarIzquierda();
+            Led1Off();
             accionTracking();
-            _delay_ms(DELAY_ESTADO);
+            break;
+          case ESCAPE:
+            Led1Off();
             break;
           case DETENIDO:
           default: 
@@ -81,40 +79,50 @@ int main (void) {
         }
         break;
       case ATRAS:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x6000);
         MoverAdelante();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x9000);
         MoverAtras();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE_DER:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x6000);
         GirarIzquierdaAtras();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case ADELANTE_IZQ:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x6000);
         GirarDerechaAtras();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case ATRAS_DER:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x1000);
         GirarIzquierdaAdelante();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case ATRAS_IZQ:
+        estado = ESCAPE;
+        arrancarTimerEstados(0x1000);
         GirarDerechaAdelante();
-        _delay_ms(DELAY_ESCAPE);
         break;
       case DERECHA:
-        RotarIzquierda();
-        _delay_ms(DELAY_ESTADO);
+        estado = ESCAPE;
+        arrancarTimerEstados(0x1000);
+        GirarIzquierdaAdelante();
+        //RotarIzquierda();
         break;
       case IZQUIERDA:
-        RotarDerecha();
-        _delay_ms(DELAY_ESTADO);
+        estado = ESCAPE;
+        arrancarTimerEstados(0x1000);
+        //RotarDerecha();
+        GirarDerechaAdelante();
         break;
       default:
-        ApagarMotores();
-        titilarLed(10);
+        //ApagarMotores();
+        //titilarLed(10);
         break;
     }
   }
@@ -126,6 +134,7 @@ void setup (void) {
 	configurarPinSensoresSup();
 	configurarPinSensoresInf();
 	configurarTimerSensoresSup();
+	configurarTimerEstados();
 	configurarPulsador();
   configurarSolenoide();
 //  energizarSolenoide();
@@ -189,7 +198,7 @@ ISR(PCINT1_vect) {
   // Este flag se clerea a mano porque el clear por hardware se realiza en el
   // momento que se atiende la interrupcion y no cuando se sale de ella.
   // Esto hace que mientras se esta dentro de la interrupcion, puedan generarse
-  // nuevos flancos (ruido) que no queremos atender
+  // nueos flancos (ruido) que no queremos atender
   SetBit(EIFR, INTF0);
 }
 

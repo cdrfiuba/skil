@@ -54,6 +54,7 @@
 typedef enum {
 	FIGHT_ADELANTE,
 	TRACKING,
+  ESCAPE,
 	DETENIDO
 } estados_t;
 

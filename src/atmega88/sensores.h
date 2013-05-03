@@ -3,6 +3,7 @@
 
 #include <avr/io.h>
 #include "definiciones.h"
+#include "skil.h"
 
 /*-----------------------------------------------*/
 /* Definiciones de los pines correspondientes a los sensores */
@@ -97,6 +98,7 @@
 
 /* ----------------------------------------------------------------- */
 
+#define CNT1_INI 0x3000
 #define PRESCALER_EMISORES_SUP   1
 // Top del timer para generar cuadrada de 40khz
 // Con 100 anda bien
@@ -116,8 +118,7 @@ typedef enum {
   IZQUIERDA = MASK_INT_SENSIZQ & MASK_INT_PIN_ALL
 } estadosInf_t;
 
-extern volatile estadosInf_t estadoInf;
-extern volatile uint8_t sensoresInf;
+extern volatile estadosInf_t sensoresInf;
 
 extern volatile uint8_t flagVisto;
 //extern int estado_anterior;
@@ -137,6 +138,7 @@ void encenderEmisorSuperior();
 
 void configurarPinSensoresSup (void);
 void configurarTimerSensoresSup (void);
+void configurarTimerEstados(void);
 void configurarPinSensoresInf(void);
 
 #endif
