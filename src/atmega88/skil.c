@@ -17,7 +17,7 @@
 
 volatile estados_t estado;
 
-// utilizado para definir la cantidad de repeticion de la misma accion aleatorea
+// utilizado para definir la cantidad de repeticion de la misma accion aleatorio
 // (ver accionTracking )
 volatile uint8_t cantVeces;
 
@@ -31,10 +31,14 @@ int main (void) {
 //    cli();
 //    while(1) movimientoPrueba();
 //  }
+  _delay_ms(1000);
+  while(estado==DETENIDO);
+  Led1On();
+  while ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0);
+  Led1Off();
 
-  while (estado == DETENIDO);
   //tiempo de espera para bajar pollera
-  _delay_ms(DELAY_INICIO);
+  //_delay_ms(DELAY_INICIO); //sacamos 
 
   // la pollera no la estamos usando, pero mejor desconectarla
   // el solenoide no puede que
@@ -53,7 +57,7 @@ int main (void) {
       EncenderMotores();
       MoverAdelante();
     }
-    
+    if ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0) ApagarMotores();
     sensoresInf = PINB & MASK_INT_PIN_ALL;
 
 
@@ -136,11 +140,12 @@ void setup (void) {
 	configurarTimerSensoresSup();
 	configurarTimerEstados();
 	configurarPulsador();
+	configurarRemoto();
   configurarSolenoide();
 //  energizarSolenoide();
   Led1Init();
   Led1Off();
-
+	
 	estado = DETENIDO;
   cantVeces = 0;
 	sei();
@@ -151,6 +156,11 @@ void configurarPulsador(void){
 	// Configuro el pin change
 	PCICR |= (1<<PCIE1);
 	PCMSK1 = (1<<PCINT9);
+}
+
+void configurarRemoto(void){
+  ClearBit(DDR_REMOTO, REMOTO_NUMBER);
+  SetBit(PORT_REMOTO, REMOTO_NUMBER);
 }
 
 void accionTracking(void){
@@ -191,8 +201,9 @@ ISR(PCINT1_vect) {
 	// el micro a dormir esperando solo esta interrupcion y luego
 	// despertalo. Aca se lo despertaria
     EncenderMotores();
-//  
-    estado = TRACKING;
+  
+    //estado = TRACKING;
+    estado = FIGHT_ADELANTE;
 	}
 
   // Este flag se clerea a mano porque el clear por hardware se realiza en el

@@ -9,6 +9,14 @@
 #define PIN_PULSADOR   def_pin_reg(PORT_PULSADOR_NAME)
 #define DDR_PULSADOR   def_ddr_reg(PORT_PULSADOR_NAME)
 
+/* REMOTO = Accionador remoto */
+#define PORT_REMOTO_NAME   D
+#define REMOTO_NUMBER      3
+
+#define PORT_REMOTO  def_port_reg(PORT_REMOTO_NAME)
+#define PIN_REMOTO   def_pin_reg(PORT_REMOTO_NAME)
+#define DDR_REMOTO   def_ddr_reg(PORT_REMOTO_NAME)
+
 /* Macros */
 // Se setea como entrada y se pone el pin en '1'. Esto último hace que se 
 // active el pull-up interno
@@ -71,6 +79,7 @@ typedef enum {
 /* prototipos de funciones usadas en skil.c */
 
 void configurarPulsador(void);
+void configurarRemoto(void);
 void setup(void);
 void accionTracking(void);
 

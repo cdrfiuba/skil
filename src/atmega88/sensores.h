@@ -10,7 +10,7 @@
 
 /* Sensores Inferiores */
 /*EP = Emisor Piso*/
-#define PORT_EP_NAME B
+#define PORT_EP_NAME C
 #define EP_NUMBER    3
 
 /*RPA = Receptor Piso A  Adelante izquierda*/
@@ -136,6 +136,7 @@ void encenderEmisorSuperior();
 #define encenderEmisorInferior()   SetBit(PORT_EP, EP_NUMBER);
 #define apagarEmisorInferior()     ClearBit(PORT_EP, EP_NUMBER);
 
+void arrancarTimerEstados(uint16_t tiempo);
 void configurarPinSensoresSup (void);
 void configurarTimerSensoresSup (void);
 void configurarTimerEstados(void);
