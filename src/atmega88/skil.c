@@ -31,14 +31,15 @@ int main (void) {
 //    cli();
 //    while(1) movimientoPrueba();
 //  }
-  _delay_ms(1000);
+  _delay_ms(100);
   while(estado==DETENIDO);
   Led1On();
-  while ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0);
+  // Necesario para el encendido remoto
+  //while ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0);
   Led1Off();
 
-  //tiempo de espera para bajar pollera
-  //_delay_ms(DELAY_INICIO); //sacamos 
+  //tiempo de espera para bajar pollera y o sin encendido remoto
+  _delay_ms(DELAY_INICIO);
 
   // la pollera no la estamos usando, pero mejor desconectarla
   // el solenoide no puede que
@@ -57,7 +58,8 @@ int main (void) {
       EncenderMotores();
       MoverAdelante();
     }
-    if ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0) ApagarMotores();
+    // apagado remoto
+    //if ((PIN_REMOTO & (1<<REMOTO_NUMBER)) == 0) ApagarMotores();
     sensoresInf = PINB & MASK_INT_PIN_ALL;
 
 
@@ -145,7 +147,7 @@ void setup (void) {
 //  energizarSolenoide();
   Led1Init();
   Led1Off();
-	
+
 	estado = DETENIDO;
   cantVeces = 0;
 	sei();
