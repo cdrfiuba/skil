@@ -1,0 +1,27 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.obj
+*.elf
+
+# Linker output
+*.map
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Executables
+*.out
+*.hex
+
+# Kicad
+
+# Latex
+*.aux
+*.pdf
+*.log
